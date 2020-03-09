@@ -1,0 +1,42 @@
+
+mydata.data <- read.csv("F:/_Systeem/Operating Systems/Windows/R/Projects/survey_results_public.csv",strip.white=TRUE)
+
+install.packages("tidyr")
+library(tidyr)
+
+//x <- separate_rows(separate_rows(mydata.data,DevType,sep=","),DevType,sep=";")
+//x2 <- as.data.frame(x)
+//x2$DevType <- trimws(x2$DevType)
+
+
+x <- separate_rows(mydata.data,DevType,sep=";")
+xxx <- subset(x,Country=="Netherlands")
+xxxx <- subset(xxx,DevType=="System administrator")
+x <- separate_rows(xxx,LanguageWorkedWith,sep=";")
+
+ggplot(xxx, aes(x = DevType)) + geom_bar(aes(y = ..count..), stat = "count")
+
+ggplot(xxx, aes(x = DevType)) + geom_bar(aes(y = ..count..), stat = "count") + theme(axis.text.x = element_text(angle = 90))
+ggplot(x, aes(x = LanguageWorkedWith)) + geom_bar(aes(y = ..count..), stat = "count") + theme(axis.text.x = element_text(angle = 90))
+
+v1 <- as.data.frame(table(xxx$DevType))
+v2 <- subset(v1,Var1=="System administrator")
+
+vv <- as.data.frame(table(xxx$OrgSize))
+bb <- subset(vv,Var1=="1,000 to 4,999 employees")$Freq
+
+> bb
+[1] 354
+
+cc <- v2$Freq
+
+bb/cc
+[1] 2
+
+dd <- subset(vv,Var1=="10 to 19 employees")$Freq
+
+> dd/cc
+[1] 3.610169
+
+> cc/dd
+[1] 0.2769953
