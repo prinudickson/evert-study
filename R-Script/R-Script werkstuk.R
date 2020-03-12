@@ -25,7 +25,7 @@ setwd("N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data
 setwd("C:/Users/Steur/SynologyDrive/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/")
 
 # Working Directory (PwC)laptop
-setwd("C:/Users/Steur/SynologyDrive/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/") < AANPASSEN
+setwd("H:/My Drive/DATA SCIENCE Werkstuk/Dataset/developer_survey_2019/")
 
 # Subvraag: Wat is de polulatie van programmeer taal in Nederland voor System Administrator? 
 # (Analyse uitvoeren Nederland uit de data te filteren en kijken hoe dat verschilt in de rest van de wereld.. )
