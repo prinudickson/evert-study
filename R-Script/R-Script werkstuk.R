@@ -49,7 +49,7 @@ names(dataset)
 summary(dataset)
 
 #View plot van 2 kolommen / variables
-plot(dataset$Country, dataset$DevType) #Werkt nog niet correct.
+#plot(dataset$Country, dataset$DevType) #Werkt nog niet correct.
 
 # Aantal rijen dataset laten zien
 nrow(dataset)
