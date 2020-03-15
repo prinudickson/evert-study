@@ -7,16 +7,18 @@ install.packages('ggplot2')
 install.packages('reshape2')
 install.packages("data.table")
 install.packages('htmlwidgets')
+install.packages("grid")
 
 #Load the required packages----
 #library(readr)
-library(dplyr)
-library(tidyr)
-library(janitor)
-library(ggplot2)
-library(reshape2)
+library("dplyr")
+library("tidyr")
+library("janitor")
+library("ggplot2")
+library("reshape2")
 library("data.table")
 library("htmlwidgets")
+library("grid")
 
 #working directory----
 getwd()
@@ -242,7 +244,7 @@ data_language_dt_percent <- merge(data_language_dt_percent, languages_presence)
 
 data_language_dt_percent <- subset(data_language_dt_percent, data_language_dt_percent$presence == 3)
 
-data_language_dt_percent$distribution <- data_language_dt_percent$users/data_language_dt_percent$overall_users
+data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/data_language_dt_percent$overall_users
 
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
@@ -251,24 +253,16 @@ ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = Langua
 
 p = ggplot(data_language_dt_percent) + 
   geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
-  geom_text(data = data_language_dt_percent, aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
   scale_colour_discrete(guide = 'none')  +    
-  theme(plot.margin = unit(c(1,3,1,1), "lines")) 
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
 
 gt <- ggplotGrob(p)
 gt$layout$clip[gt$layout$name == "panel"] <- "off"
 grid.draw(gt)
-# data_language_wide_percent <- dcast(data_language_dt_percent,
-#                                     Year ~ LanguageWorkedWith,
-#                                     value.var = "distribution")
-# 
-# fig1 <- plot_ly({
-#  data <- data_language_wide_percent
-# 
-#  len <- length(data)
-#  
-#  l1 <- plot_ly(data, x = data[[1]], y = data[[2]])
-#  
-# })
 
+#Reference------
+
+#For the line graph generator----
+#https://stackoverflow.com/questions/29357612/plot-labels-at-ends-of-lines
 
