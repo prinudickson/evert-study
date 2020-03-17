@@ -244,7 +244,7 @@ data_2019_futurelanguage <- separate_rows(data_2019_futurelanguage_ini, Language
 
 data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelanguage$LanguageDesireNextYear)
 
-#Aggregated data sets---- / Samenvoegen Datasets
+#Aggregated data sets---- / Samenvoegen Datasets  > From here it's going wrong...
 
 data_language <- rbind(data_2017_language, data_2018_language, data_2019_language)
 
