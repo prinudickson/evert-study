@@ -1,5 +1,5 @@
 #Install the required packages----
-#install.packages("readr")
+install.packages("readr")
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages('janitor')
@@ -10,7 +10,7 @@ install.packages('htmlwidgets')
 install.packages("grid")
 
 #Load the required packages----
-#library(readr)
+library("readr")
 library("dplyr")
 library("tidyr")
 library("janitor")
@@ -24,25 +24,32 @@ library("grid")
 getwd()
 
 #Set this based on your laptop's working directory
-setwd("C:/Users/pdickson004/Desktop/Personal_Projects/evert-study")
+setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/R-Script")
+
 
 #data for 2016
+data_ini_2016 <- read_csv(file = "N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
 
-data_ini_2016 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2016/2016_Stack_Overflow_Survey_Results/2016_Stack_Overflow_Survey_Responses.csv")
+View(data_ini_2016)
 
 
 #data for 2017
-data_ini_2017 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2017/survey_results_public.csv")
+data_ini_2017 <- read_csv(file = "N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/developer_survey_2017/survey_results_public.csv")
 
-data_schema_2017 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2017/survey_results_schema.csv")
+View(data_ini_2017)
+
+data_schema_2017 <- read_csv(file = "N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/developer_survey_2017/survey_results_schema.csv")
 
 
 #data for 2018
-data_ini_2018 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2018/survey_results_public.csv")
+data_ini_2018 <- read_csv(file = "N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/developer_survey_2018/survey_results_public.csv")
 
+View(data_ini_2018)
 
 #data for 2019
-data_ini_2019 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2019/survey_results_public.csv")
+data_ini_2019 <- read_csv(file = "N:/Studeren/Novi Hogeschool/Leerlijnen/Data Science/Dataset/Bewerkte Data-set/developer_survey_2019/survey_results_public.csv")
+
+View(data_ini_2019)
 
 #Prepare the data for 2017----
 
@@ -54,6 +61,7 @@ data_ini_2019 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects
 #worked with till then to the language, framework or platform they worked for 2017 and what they indend for the next year. 
 
 
+# Added kolommen na de select
 data_2017_filter <- data_ini_2017 %>%
                     select(Respondent, Country, EmploymentStatus, DeveloperType, FormalEducation, HaveWorkedLanguage, WantWorkLanguage, 
                            HaveWorkedFramework, WantWorkFramework, HaveWorkedDatabase, WantWorkDatabase, HaveWorkedPlatform, WantWorkPlatform) %>%
@@ -61,14 +69,22 @@ data_2017_filter <- data_ini_2017 %>%
                            FrameworkWorkedWith = HaveWorkedFramework, FrameworkDesireNextYear = WantWorkFramework, DatabaseWorkedWith = HaveWorkedDatabase,
                            DatabaseDesireNextYear = WantWorkDatabase, PlatformWorkedWith = HaveWorkedPlatform, PlatformDesireNextYear = WantWorkPlatform)
 
+View(data_2017_filter)
+
 
 #Data Cleaning 2017 1----
 #Filter out people from employment who have chosen "I prefer not to say".
 #We are doing this as in the 2018 and 2019 data sets this option is not there. 
 #Removing this gives us a cleaner data set comparitively. 
 
+
+# Vernieuwde variable waar "I prefer not to say" uit vandaan is gehaald
+
 data_2017_filter <- filter(data_2017_filter, Employment != "I prefer not to say")
 
+
+
+####################### Need more information about below. Don't understand the export of this.######################################### EVERT
 
 #Data transformation 2017 1----
 #Creating a common Education level.
@@ -98,6 +114,8 @@ data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducatio
                                                                       ifelse(data_2017_filter$FormalEducation == "Primary/elementary school", "Primary school",
                                                                              ifelse(data_2017_filter$FormalEducation == "Secondary school", "Secondary school", "Others" ))))))
 
+# Dataset 2017 Analysis 
+
 #DevType Analysis----
 
 data_2017_devtype_ini <- data_2017_filter %>%
@@ -110,7 +128,7 @@ data_2017_devtype$DevType <- trimws(data_2017_devtype$DevType)
 #Language Analysis----
 
 data_2017_language_ini <- data_2017_filter %>%
-  select(Respondent, LanguageWorkedWith, Country)
+  select(Respondent, LanguageWorkedWith)
 
 data_2017_language <- separate_rows(data_2017_language_ini, LanguageWorkedWith, sep=";")
 
@@ -155,7 +173,7 @@ data_2018_devtype$DevType <- trimws(data_2018_devtype$DevType)
 #Language Analysis----
 
 data_2018_language_ini <- data_2018_filter %>%
-  select(Respondent, LanguageWorkedWith, Country)
+  select(Respondent, LanguageWorkedWith)
 
 data_2018_language <- separate_rows(data_2018_language_ini, LanguageWorkedWith, sep=";")
 
@@ -171,7 +189,13 @@ data_2018_futurelanguage_ini <- data_2018_filter %>%
 
 data_2018_futurelanguage <- separate_rows(data_2018_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_language$LanguageDesireNextYear)
+# Should we not remove the NA ?
+data_2018_futurelanguage <- na.omit(data_2018_futurelanguage) 
+
+data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_futurelanguage$LanguageDesireNextYear)
+
+View(data_2018_futurelanguage)
+
 
 
 #Prepare the data for 2019----
@@ -202,7 +226,7 @@ data_2019_devtype$DevType <- trimws(data_2019_devtype$DevType)
 #Language Analysis----
 
 data_2019_language_ini <- data_2019_filter %>%
-  select(Respondent, LanguageWorkedWith, Country)
+  select(Respondent, LanguageWorkedWith)
 
 data_2019_language <- separate_rows(data_2019_language_ini, LanguageWorkedWith, sep=";")
 
@@ -220,10 +244,7 @@ data_2019_futurelanguage <- separate_rows(data_2019_futurelanguage_ini, Language
 
 data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelanguage$LanguageDesireNextYear)
 
-#Aggregated data sets----
-
-#Create the World distribution plot of popular programming languages-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+#Aggregated data sets---- / Samenvoegen Datasets  > From here it's going wrong...
 
 data_language <- rbind(data_2017_language, data_2018_language, data_2019_language)
 
@@ -251,71 +272,21 @@ data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/da
 
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
-data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
+p = ggplot(data_language_dt_percent) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
-data_language_ggplot_grid = ggplot(data_language_dt_percent) + 
-                                       geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
-                                       geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
-                                       scale_colour_discrete(guide = 'none')  +    
-                                       theme(plot.margin = unit(c(1,6,1,1), "lines")) 
-
-data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
-data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
-grid.draw(data_language_ggplot_grid_layout)
+gt <- ggplotGrob(p)
+gt$layout$clip[gt$layout$name == "panel"] <- "off"
+grid.draw(gt)
 
 #Reference------
 
 #For the line graph generator----
 #https://stackoverflow.com/questions/29357612/plot-labels-at-ends-of-lines
-
-#Create the Netherlands distribution plot of popular programming languages-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
-
-data_language_clean_nl <- data_language_clean %>%
-                          filter(Country == "Netherlands")
-
-data_language_dt_nl <- data_language_clean_nl %>%
-                        group_by(LanguageWorkedWith, Year) %>%
-                        summarize(users = n_distinct(Respondent))
-
-users_by_year_nl <- data_language %>%
-                    filter(Country == "Netherlands")%>%
-                    group_by(Year) %>%
-                    summarize(overall_users = n_distinct(Respondent))
-
-languages_presence_nl <- data_language  %>%
-                          filter(Country == "Netherlands")%>%
-                          group_by(LanguageWorkedWith) %>%
-                          summarize(presence = n_distinct(Year))
-
-data_language_dt_percent_nl <- merge(data_language_dt_nl, users_by_year_nl)
-
-data_language_dt_percent_nl <- merge(data_language_dt_percent_nl, languages_presence_nl)
-
-data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3)
-
-data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
-
-data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
-
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
-data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
-
-
-
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
-data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
-  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
-  geom_text(data = subset(data_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
-  scale_colour_discrete(guide = 'none')  +    
-  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
-
-data_language_ggplot_grid_layout_nl <- ggplotGrob(data_language_ggplot_grid_nl)
-data_language_ggplot_grid_layout_nl$layout$clip[data_language_ggplot_grid_layout_nl$layout$name == "panel"] <- "off"
-grid.draw(data_language_ggplot_grid_layout_nl)
-
 
