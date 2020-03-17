@@ -110,7 +110,7 @@ data_2017_devtype$DevType <- trimws(data_2017_devtype$DevType)
 #Language Analysis----
 
 data_2017_language_ini <- data_2017_filter %>%
-  select(Respondent, LanguageWorkedWith)
+  select(Respondent, LanguageWorkedWith, Country)
 
 data_2017_language <- separate_rows(data_2017_language_ini, LanguageWorkedWith, sep=";")
 
@@ -155,7 +155,7 @@ data_2018_devtype$DevType <- trimws(data_2018_devtype$DevType)
 #Language Analysis----
 
 data_2018_language_ini <- data_2018_filter %>%
-  select(Respondent, LanguageWorkedWith)
+  select(Respondent, LanguageWorkedWith, Country)
 
 data_2018_language <- separate_rows(data_2018_language_ini, LanguageWorkedWith, sep=";")
 
@@ -202,7 +202,7 @@ data_2019_devtype$DevType <- trimws(data_2019_devtype$DevType)
 #Language Analysis----
 
 data_2019_language_ini <- data_2019_filter %>%
-  select(Respondent, LanguageWorkedWith)
+  select(Respondent, LanguageWorkedWith, Country)
 
 data_2019_language <- separate_rows(data_2019_language_ini, LanguageWorkedWith, sep=";")
 
@@ -218,9 +218,12 @@ data_2019_futurelanguage_ini <- data_2019_filter %>%
 
 data_2019_futurelanguage <- separate_rows(data_2019_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_language$LanguageDesireNextYear)
+data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelanguage$LanguageDesireNextYear)
 
 #Aggregated data sets----
+
+#Create the World distribution plot of popular programming languages-----
+#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
 
 data_language <- rbind(data_2017_language, data_2018_language, data_2019_language)
 
@@ -248,21 +251,71 @@ data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/da
 
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
-ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
-p = ggplot(data_language_dt_percent) + 
-  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
-  geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
-  scale_colour_discrete(guide = 'none')  +    
-  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
 
-gt <- ggplotGrob(p)
-gt$layout$clip[gt$layout$name == "panel"] <- "off"
-grid.draw(gt)
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_language_ggplot_grid = ggplot(data_language_dt_percent) + 
+                                       geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+                                       geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+                                       scale_colour_discrete(guide = 'none')  +    
+                                       theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
+data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_language_ggplot_grid_layout)
 
 #Reference------
 
 #For the line graph generator----
 #https://stackoverflow.com/questions/29357612/plot-labels-at-ends-of-lines
+
+#Create the Netherlands distribution plot of popular programming languages-----
+#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
+data_language_clean_nl <- data_language_clean %>%
+                          filter(Country == "Netherlands")
+
+data_language_dt_nl <- data_language_clean_nl %>%
+                        group_by(LanguageWorkedWith, Year) %>%
+                        summarize(users = n_distinct(Respondent))
+
+users_by_year_nl <- data_language %>%
+                    filter(Country == "Netherlands")%>%
+                    group_by(Year) %>%
+                    summarize(overall_users = n_distinct(Respondent))
+
+languages_presence_nl <- data_language  %>%
+                          filter(Country == "Netherlands")%>%
+                          group_by(LanguageWorkedWith) %>%
+                          summarize(presence = n_distinct(Year))
+
+data_language_dt_percent_nl <- merge(data_language_dt_nl, users_by_year_nl)
+
+data_language_dt_percent_nl <- merge(data_language_dt_percent_nl, languages_presence_nl)
+
+data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3)
+
+data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
+
+data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
+
+#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
+data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
+data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_language_ggplot_grid_layout_nl <- ggplotGrob(data_language_ggplot_grid_nl)
+data_language_ggplot_grid_layout_nl$layout$clip[data_language_ggplot_grid_layout_nl$layout$name == "panel"] <- "off"
+grid.draw(data_language_ggplot_grid_layout_nl)
+
 
