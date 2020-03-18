@@ -4,11 +4,11 @@
 Team Prinu
 ITS
 Team Alex
+Team Kailey van zomeren.
 
 
 
 2 Aanalyses uitvoeren.
-
 
 Nederland vergeleken met wereldwijd. ( Programmeer talen? )
 
@@ -20,9 +20,7 @@ PwC in Nederland
 
 En PwC + Nederland + wereldwijd.
 
-
 Vragen uit Enquete geruiken?
-
 
 Industie van werk. PwC.  (Aantal werknemers vergelijken uit de Enquete)
 
@@ -34,7 +32,6 @@ Welke programmeer talen ken je?  > DONE
 
 Welke programmeer talen gebruik je? > DONE
 
-
 Hoeveel jaren programeer ervaring heb je? DONE> 
 
 Welke opleidingen heb je genoten? 
@@ -43,7 +40,7 @@ Jobs > DONE
 
 ==================================================================================================
 
-
+Below Questions to ask in the Enquete.
 ==========================================================================================================================================================
 
 Which of the following describe you? Please select all that apply.
