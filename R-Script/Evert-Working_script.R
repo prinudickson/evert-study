@@ -1,5 +1,5 @@
 #Install the required packages----
-#install.packages("readr")
+install.packages("readr")
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages('janitor')
@@ -10,7 +10,7 @@ install.packages('htmlwidgets')
 install.packages("grid")
 
 #Load the required packages----
-#library(readr)
+library("readr")
 library("dplyr")
 library("tidyr")
 library("janitor")
@@ -25,24 +25,25 @@ getwd()
 
 #Set this based on your laptop's working directory
 setwd("C:/Users/esteur002/Documents/GitHub/evert-study")
+setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study")
 
 #data for 2016
 
-data_ini_2016 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
+data_ini_2016 <- read_csv(file = "C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
 
 
 #data for 2017
-data_ini_2017 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
+data_ini_2017 <- read_csv(file = "C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
 
-data_schema_2017 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
+data_schema_2017 <- read_csv(file = "C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
 
 
 #data for 2018
-data_ini_2018 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
+data_ini_2018 <- read_csv(file = "C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
 
 
 #data for 2019
-data_ini_2019 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
+data_ini_2019 <- read_csv(file = "C:/Users/evert/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
 
 #Prepare the data for 2017----
 
@@ -68,6 +69,9 @@ data_2017_filter <- data_ini_2017 %>%
 #Removing this gives us a cleaner data set comparitively. 
 
 data_2017_filter <- filter(data_2017_filter, Employment != "I prefer not to say")
+
+
+####################### Need more information about below. Don't understand the export of this.######################################### EVERT
 
 
 #Data transformation 2017 1----
@@ -107,6 +111,8 @@ data_2017_devtype <- separate_rows(data_2017_devtype_ini,DevType,sep=";")
 
 data_2017_devtype$DevType <- trimws(data_2017_devtype$DevType)
 
+#trims remove the spaces 
+
 #Language Analysis----
 
 data_2017_language_ini <- data_2017_filter %>%
@@ -133,6 +139,7 @@ data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_futurelangua
 
 #Selecting the required columnms which will be mapped to prepare the 2018 data.----
 #Note that the 2018 data has not been transformed or cleaned a lot as this was used as a base for transforming 2017 and 2019 data. 
+# 2018 is de basis. Vanuit deze dataset is gewerkt om 2017 + 2018 hetzelfde te krijgen als 2018.
 
 data_2018_filter <- data_ini_2018 %>%
                     select(Respondent, Country, Employment, DevType, FormalEducation, LanguageWorkedWith, LanguageDesireNextYear, 
@@ -184,6 +191,8 @@ data_2019_filter <- data_ini_2019 %>%
                     select(Respondent, Country, Employment, DevType, EdLevel, LanguageWorkedWith, LanguageDesireNextYear, 
                            WebFrameWorkedWith, WebFrameDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear) %>%
                     rename(FormalEducation = EdLevel, FrameworkWorkedWith = WebFrameWorkedWith, FrameworkDesireNextYear = WebFrameDesireNextYear )
+
+# NOTE !!! Why do we need to know the education level???
 
 data_2019_filter$educationlevel_clean <-  ifelse(data_2019_filter$FormalEducation == "Bachelorâ€™s degree (BA, BS, B.Eng., etc.)", "Bachelors", 
                                                  ifelse(data_2019_filter$FormalEducation == "Masterâ€™s degree (MA, MS, M.Eng., MBA, etc.)", "Masters",
@@ -253,12 +262,12 @@ data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/da
 
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1   > Where can I see the export of this PLOT?
 data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
-View(data_language_ggplot)
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2  >  > Where can I see the export of this PLOT?
 data_language_ggplot_grid = ggplot(data_language_dt_percent) + 
                                        geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
                                        geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
