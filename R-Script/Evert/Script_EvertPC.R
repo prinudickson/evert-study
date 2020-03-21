@@ -143,7 +143,7 @@ data_2017_futurelanguage_ini <- data_2017_filter %>%
 
 data_2017_futurelanguage <- separate_rows(data_2017_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_language$LanguageDesireNextYear)
+data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_futurelanguage$LanguageDesireNextYear)
 
 #Prepare the data for 2018----
 
