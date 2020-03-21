@@ -24,25 +24,25 @@ library("grid")
 getwd()
 
 #Set this based on your laptop's working directory
-setwd("C:/Users/pdickson004/Desktop/Personal_Projects/evert-study")
+setwd("C:/Users/esteur002/Documents/GitHub/evert-study")
 
 #data for 2016
 
-data_ini_2016 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2016/2016_Stack_Overflow_Survey_Results/2016_Stack_Overflow_Survey_Responses.csv")
+data_ini_2016 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
 
 
 #data for 2017
-data_ini_2017 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2017/survey_results_public.csv")
+data_ini_2017 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
 
-data_schema_2017 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2017/survey_results_schema.csv")
+data_schema_2017 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
 
 
 #data for 2018
-data_ini_2018 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2018/survey_results_public.csv")
+data_ini_2018 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
 
 
 #data for 2019
-data_ini_2019 <- read.csv(file = "C:/Users/pdickson004/Desktop/Personal_Projects/evert-study/data/developer_survey_2019/survey_results_public.csv")
+data_ini_2019 <- read.csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
 
 #Prepare the data for 2017----
 
@@ -125,7 +125,9 @@ data_2017_futurelanguage_ini <- data_2017_filter %>%
 
 data_2017_futurelanguage <- separate_rows(data_2017_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_language$LanguageDesireNextYear)
+### OLD ONE   data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_language$LanguageDesireNextYear)
+
+data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_futurelanguage$LanguageDesireNextYear)
 
 #Prepare the data for 2018----
 
@@ -171,7 +173,7 @@ data_2018_futurelanguage_ini <- data_2018_filter %>%
 
 data_2018_futurelanguage <- separate_rows(data_2018_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_language$LanguageDesireNextYear)
+data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_futurelanguage$LanguageDesireNextYear)
 
 
 #Prepare the data for 2019----
@@ -254,7 +256,7 @@ data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
 data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
-
+View(data_language_ggplot)
 
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
 data_language_ggplot_grid = ggplot(data_language_dt_percent) + 
