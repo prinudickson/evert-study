@@ -1,14 +1,74 @@
 
-
+Versturen naar BCC ? Zodat de rest van de adressen niet zichtbaar wordt?
 
 Team Prinu
-ITS
+Link delen via Hangouts. Hij stuurt hem door.
+
+
+
+Data Team:
+NL_Data-Integration@pwc.com
+
+
+Operations:
+NL_TS_Operations@pwc.com
+
+
 Team Alex
-Team Kailey van zomeren.
+nl_development_test@pwc.com
+
+
+Engineering
+Alexander Schekkerman
+Glenn
+Michiel Bruggen
+Remco Degeling
+Rob Sterkenburg
+
+
+Team MDS?
+NL_Automation@pwc.com
+
+
+
+Team Bob hoogenboom:
+metis-bi@nl.pwc.com
+
+Eric Verleg
+Bob Hoogenboom
+Marco Hooglander
+Erik Zalm
+Tjibbe Veenema
+Sander van Ee
+Laura Sijthoff
+Luis Jorge de Luna
+Herman Berger
+Walter Sillevis
+
+
+
+
+
+Experience Center
+
+"Ayhan Elatik (NL)" <ayhan.elatik@pwc.com>,
+"Besma Mcharek (NL)" <basma.mcharek@pwc.com>,
+"Dalmir Aljic (NL)" <dalmir.aljic@pwc.com>,
+"Henk Jan Faber (NL)" <henk.jan.faber@pwc.com>,
+Jeroen B van Hoof  <jeroen.b.van.hoof@pwc.com>,
+"Ludy Rohling (NL)" <ludy.rohling@pwc.com>,
+"Luud Jacobs (NL)" <luud.jacobs@pwc.com>,
+"Peter Wiggers (NL)" <peter.wiggers@pwc.com>,
+"Richard Hart (NL)" <richard.hart@pwc.com>,
+"Wouter van der Aart (NL)" <wouter.van.der.aart@pwc.com>
+
+
+
 
 
 
 2 Aanalyses uitvoeren.
+
 
 Nederland vergeleken met wereldwijd. ( Programmeer talen? )
 
@@ -20,7 +80,9 @@ PwC in Nederland
 
 En PwC + Nederland + wereldwijd.
 
+
 Vragen uit Enquete geruiken?
+
 
 Industie van werk. PwC.  (Aantal werknemers vergelijken uit de Enquete)
 
@@ -32,6 +94,7 @@ Welke programmeer talen ken je?  > DONE
 
 Welke programmeer talen gebruik je? > DONE
 
+
 Hoeveel jaren programeer ervaring heb je? DONE> 
 
 Welke opleidingen heb je genoten? 
@@ -40,7 +103,7 @@ Jobs > DONE
 
 ==================================================================================================
 
-Below Questions to ask in the Enquete.
+
 ==========================================================================================================================================================
 
 Which of the following describe you? Please select all that apply.
@@ -54,11 +117,6 @@ Developer, backend
 Developer, desktop or enterprise applications
 Developer, embedded applications or devices
 Developer, frontend
-2/7/2019 Qualtrics Survey Software
-https://stackoverflow.az1.qualtrics.com/WRQualtricsControlPanel/Ajax.php?action=GetSurveyPrintPreview 11/42
-Including any education, how many years have you been coding?
-At what age did you write your first line of code or program? (E.g.,
-webpage, Hello World, Scratch project)
 Developer, fullstack
 Developer, game or graphics
 Developer, mobile
@@ -114,24 +172,6 @@ WebAssembly
 Other(s):
 
 
-
-
-Including any education, how many years have you been coding?  (Ervaring met coderen? )
-
-0-2 years
-3-5 years
-6-8 years
-9-11 years
-12-14 years
-15-17 years
-18-20 years
-21-23 years
-24-26 years
-27-29 years
-30 or more years
-
-
-Opzoeken in Enquete hoe vertaald.
 
 
 
