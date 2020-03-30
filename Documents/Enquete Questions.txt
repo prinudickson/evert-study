@@ -1,0 +1,187 @@
+
+
+
+Team Prinu
+ITS
+Team Alex
+Team Kailey van zomeren.
+
+
+
+2 Aanalyses uitvoeren.
+
+Nederland vergeleken met wereldwijd. ( Programmeer talen? )
+
+
+Meerdere datasets inladen. En vergeijken met bv de dataset uit 2017 + 2018 + 2019
+
+Daarna
+PwC in Nederland
+
+En PwC + Nederland + wereldwijd.
+
+Vragen uit Enquete geruiken?
+
+Industie van werk. PwC.  (Aantal werknemers vergelijken uit de Enquete)
+
+
+==================================================================================================
+
+
+Welke programmeer talen ken je?  > DONE
+
+Welke programmeer talen gebruik je? > DONE
+
+Hoeveel jaren programeer ervaring heb je? DONE> 
+
+Welke opleidingen heb je genoten? 
+
+Jobs > DONE
+
+==================================================================================================
+
+Below Questions to ask in the Enquete.
+==========================================================================================================================================================
+
+Which of the following describe you? Please select all that apply.
+
+Academic researcher
+Data or business analyst
+Data scientist or machine learning specialist
+Database administrator
+Designer
+Developer, backend
+Developer, desktop or enterprise applications
+Developer, embedded applications or devices
+Developer, frontend
+2/7/2019 Qualtrics Survey Software
+https://stackoverflow.az1.qualtrics.com/WRQualtricsControlPanel/Ajax.php?action=GetSurveyPrintPreview 11/42
+Including any education, how many years have you been coding?
+At what age did you write your first line of code or program? (E.g.,
+webpage, Hello World, Scratch project)
+Developer, fullstack
+Developer, game or graphics
+Developer, mobile
+Developer, QA or test
+DevOps specialist
+Educator
+Engineer, data
+Engineer, site reliability
+Engineering manager
+Marketing or sales professional
+Product manager
+Scientist
+Senior Executive (CSuite,
+VP, etc.)
+Student
+System administrator
+Other
+
+
+
+
+
+Which of the following programming, scripting, and markup languages
+have you done extensive development worked with.
+
+Assembly
+Bash/Shell/PowerShell
+C
+C++
+C#
+Clojure
+Dart
+Elixir
+Erlang
+F#
+Go
+HTML/CSS
+Java
+JavaScript
+Kotlin
+ObjectiveC
+PHP
+Python
+R
+Ruby
+Rust
+Scala
+SQL
+Swift
+TypeScript
+VBA
+WebAssembly
+Other(s):
+
+
+
+
+Including any education, how many years have you been coding?  (Ervaring met coderen? )
+
+0-2 years
+3-5 years
+6-8 years
+9-11 years
+12-14 years
+15-17 years
+18-20 years
+21-23 years
+24-26 years
+27-29 years
+30 or more years
+
+
+Opzoeken in Enquete hoe vertaald.
+
+
+
+Which of the following database environments have you done development work with?
+
+Cassandra
+Couchbase
+DynamoDB
+Elasticsearch
+Firebase
+MariaDB
+MongoDB
+Microsoft SQL Server
+MySQL
+Oracle
+PostgreSQL
+Redis
+SQLite
+
+
+
+Which development environment(s) do you use regularly? Please check all that apply.
+
+Android Studio
+Atom
+Coda
+Eclipse
+Emacs
+IntelliJ
+IPython / Jupyter
+Komodo
+Light Table
+NetBeans
+Notepad++
+PHPStorm
+PyCharm
+RStudio
+RubyMine
+Sublime Text
+TextMate
+Vim
+Visual Studio
+Visual Studio Code
+Xcode
+Zend
+Other(s):
+
+
+
+
+
+
+
