@@ -125,7 +125,7 @@ data_2017_futurelanguage_ini <- data_2017_filter %>%
 
 data_2017_futurelanguage <- separate_rows(data_2017_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_language$LanguageDesireNextYear)
+data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_futurelanguage$LanguageDesireNextYear)
 
 #Prepare the data for 2018----
 
@@ -171,7 +171,7 @@ data_2018_futurelanguage_ini <- data_2018_filter %>%
 
 data_2018_futurelanguage <- separate_rows(data_2018_futurelanguage_ini, LanguageDesireNextYear, sep=";")
 
-data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_language$LanguageDesireNextYear)
+data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_futurelanguage$LanguageDesireNextYear)
 
 
 #Prepare the data for 2019----
@@ -229,14 +229,17 @@ data_language <- rbind(data_2017_language, data_2018_language, data_2019_languag
 
 data_language_clean<- na.omit(data_language, cols = "LanguageWorkedWith")
 
+#Create a dataframe to see the overall user per language per year. 
 data_language_dt <- data_language_clean %>%
                     group_by(LanguageWorkedWith, Year) %>%
                     summarize(users = n_distinct(Respondent))
 
+#Create a dataframe to see the overall users per year. 
 users_by_year <- data_language %>%
                   group_by(Year) %>%
                   summarize(overall_users = n_distinct(Respondent))
 
+#Check the number of years this language was present in the survey
 languages_presence <- data_language %>%
                         group_by(LanguageWorkedWith) %>%
                         summarize(presence = n_distinct(Year))
