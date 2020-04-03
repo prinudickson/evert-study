@@ -29,21 +29,21 @@ setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study")
 
 #data for 2016
 
-data_ini_2016 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
+data_ini_2016 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
 
 
 #data for 2017
-data_ini_2017 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
+data_ini_2017 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
 
-data_schema_2017 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
+data_schema_2017 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
 
 
 #data for 2018
-data_ini_2018 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
+data_ini_2018 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
 
 
 #data for 2019
-data_ini_2019 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
+data_ini_2019 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
 
 
 # Onderstaande geeft wat meer duidelijkheid / inzicht / feeling in de DataSets.
@@ -272,40 +272,54 @@ data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelangua
 #Create the World distribution plot of popular programming languages-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
 
+# Combineert alle 3 Language per jaar tot 1 variabele
 data_language <- rbind(data_2017_language, data_2018_language, data_2019_language)
 
 View(data_language)
 
+# Verwijderd alle NA antwoorden uit kolom LanguageWorkedWith
 data_language_clean<- na.omit(data_language, cols = "LanguageWorkedWith")
 
 View(data_language_clean)
 
+# Extra kolom toegevoegd. Geeft het totaal users weer wat met de programmeer taal gewerkt heeft PER jaartal en PER programmeertaal!
 data_language_dt <- data_language_clean %>%
                     group_by(LanguageWorkedWith, Year) %>%
                     summarize(users = n_distinct(Respondent))
 
 View(data_language_dt)
 
+# Deze variabele geeft een overall overzicht van het aantal users PER jaar uit de data_language variabele. 
+# Waarin alle respondenten verwerkt zijn.
 users_by_year <- data_language %>%
                   group_by(Year) %>%
                   summarize(overall_users = n_distinct(Respondent))
 
 View(users_by_year)
 
+# Vertelt hoevaak de programmeer taal voorkomt. Per jaar. dus staat er 1 dan komt die 1x in de survey voor. Staat er 2 dan komt de 
+# taal 2 keer bij 3x komt die in alle 3 survey's voor.
 languages_presence <- data_language %>%
                         group_by(LanguageWorkedWith) %>%
                         summarize(presence = n_distinct(Year))
 
 View(languages_presence)
 
+#Voegt beide varialele toe tot 1 compleet variabele.
 data_language_dt_percent <- merge(data_language_dt, users_by_year)
 
+View(data_language_dt_percent)
+
+# Voegt de kolom precense bij de complete duidelijke dataset van data_language_dt_percent
 data_language_dt_percent <- merge(data_language_dt_percent, languages_presence)
 
+# Filtert alleen de talen die alle jaren voorkwamen. 
 data_language_dt_percent <- subset(data_language_dt_percent, data_language_dt_percent$presence == 3)
 
+# Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/data_language_dt_percent$overall_users
 
+# What means below one?
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
@@ -332,30 +346,49 @@ grid.draw(data_language_ggplot_grid_layout)
 #Create the Netherlands distribution plot of popular programming languages-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
 
+# Geeft alle respondenten weer vanuit Nederland.
 data_language_clean_nl <- data_language_clean %>%
   filter(Country == "Netherlands")
 
+View(data_language_clean_nl)
+
+# Geeft het aantal respondenten weer per programmeertaal per jaar!
 data_language_dt_nl <- data_language_clean_nl %>%
   group_by(LanguageWorkedWith, Year) %>%
   summarize(users = n_distinct(Respondent))
 
+View(data_language_dt_nl)
+
+# Totaal respondenten vanuit Netherlands per jaartal
 users_by_year_nl <- data_language %>%
   filter(Country == "Netherlands")%>%
   group_by(Year) %>%
   summarize(overall_users = n_distinct(Respondent))
 
+View(users_by_year_nl)
+
+# Aantal x gevraagde taal per dataset. Dus 3x betekend dat de programmeer taal per jaar voorkomt. 
 languages_presence_nl <- data_language  %>%
   filter(Country == "Netherlands")%>%
   group_by(LanguageWorkedWith) %>%
   summarize(presence = n_distinct(Year))
 
+View(languages_presence_nl)
+
+# Voegt variabele data_language_dt_nl en users_by_year_nl samen bij elkaar in 1 variabele.
 data_language_dt_percent_nl <- merge(data_language_dt_nl, users_by_year_nl)
 
+# Voegt variabele languages_presence_nl erbij 
 data_language_dt_percent_nl <- merge(data_language_dt_percent_nl, languages_presence_nl)
 
+View(data_language_dt_percent_nl)
+
+#Filtert alleen de talen die alle jaren voorkwamen. 
 data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3)
 
+# Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
+
 
 data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
 
@@ -363,6 +396,7 @@ data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
 data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
+  
 
 #Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
 data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
