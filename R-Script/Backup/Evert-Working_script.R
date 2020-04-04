@@ -319,7 +319,7 @@ data_language_dt_percent <- subset(data_language_dt_percent, data_language_dt_pe
 # Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/data_language_dt_percent$overall_users
 
-# Maakt deze kolom als waarde getallen (numerich/integer)
+# What means below one?
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
@@ -389,7 +389,7 @@ data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language
 # Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
 
-# Maakt deze kolom als waarde getallen (numerich/integer)
+
 data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
 
 #Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
