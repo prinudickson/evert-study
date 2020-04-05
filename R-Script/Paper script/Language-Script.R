@@ -20,6 +20,7 @@ library("data.table")
 library("htmlwidgets")
 library("grid")
 
+
 #working directory----
 getwd()
 
@@ -27,15 +28,9 @@ getwd()
 setwd("C:/Users/esteur002/Documents/GitHub/evert-study")
 setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study")
 
-#data for 2016
-
-data_ini_2016 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
-
 
 #data for 2017
 data_ini_2017 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
-
-data_schema_2017 <- read_csv(file = "C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
 
 
 #data for 2018
@@ -74,6 +69,7 @@ View(data_ini_2019)
 
 
 
+
 #Prepare the data for 2017----
 
 #Selecting the required columnms which will be mapped to prepare the 2017 data.----
@@ -85,11 +81,11 @@ View(data_ini_2019)
 
 
 data_2017_filter <- data_ini_2017 %>%
-                    select(Respondent, Country, EmploymentStatus, DeveloperType, FormalEducation, HaveWorkedLanguage, WantWorkLanguage, 
-                           HaveWorkedFramework, WantWorkFramework, HaveWorkedDatabase, WantWorkDatabase, HaveWorkedPlatform, WantWorkPlatform) %>%
-                    rename(Employment = EmploymentStatus, DevType = DeveloperType, LanguageWorkedWith = HaveWorkedLanguage, LanguageDesireNextYear = WantWorkLanguage, 
-                           FrameworkWorkedWith = HaveWorkedFramework, FrameworkDesireNextYear = WantWorkFramework, DatabaseWorkedWith = HaveWorkedDatabase,
-                           DatabaseDesireNextYear = WantWorkDatabase, PlatformWorkedWith = HaveWorkedPlatform, PlatformDesireNextYear = WantWorkPlatform)
+  select(Respondent, Country, EmploymentStatus, DeveloperType, FormalEducation, HaveWorkedLanguage, WantWorkLanguage, 
+         HaveWorkedFramework, WantWorkFramework, HaveWorkedDatabase, WantWorkDatabase, HaveWorkedPlatform, WantWorkPlatform) %>%
+  rename(Employment = EmploymentStatus, DevType = DeveloperType, LanguageWorkedWith = HaveWorkedLanguage, LanguageDesireNextYear = WantWorkLanguage, 
+         FrameworkWorkedWith = HaveWorkedFramework, FrameworkDesireNextYear = WantWorkFramework, DatabaseWorkedWith = HaveWorkedDatabase,
+         DatabaseDesireNextYear = WantWorkDatabase, PlatformWorkedWith = HaveWorkedPlatform, PlatformDesireNextYear = WantWorkPlatform)
 
 
 #Data Cleaning 2017 1----
@@ -101,49 +97,6 @@ data_2017_filter <- filter(data_2017_filter, Employment != "I prefer not to say"
 
 View(data_2017_filter)
 
-
-# ADDED. WHEN NEEDED WE CAN USE IT. FOR NOW NOT NEEDED.
-
-#Data transformation 2017 1----
-#Creating a common Education level.
-
-data_2017_filter$FormalEducation <- as.character(data_2017_filter$FormalEducation)
-
-# if(as.character(data_2017_filter$FormalEducation) == "Bachelor's degree"){
-#   data_2017_filter$EducationLevel_clean <- "Bachelors"
-# } else if(data_2017_filter$FormalEducation == "Master's degree"){
-#   data_2017_filter$EducationLevel_clean <-  "Masters"
-# } else if (data_2017_filter$FormalEducation == "Some college/university study without earning a bachelor's degree") {
-#   data_2017_filter$EducationLevel_clean <- "Did not finish college/Uni"  
-# }else if(data_2017_filter$FormalEducation == "I never completed any formal education"){
-#   data_2017_filter$EducationLevel_clean <- "Never completed any formal education"
-# } else if(data_2017_filter$FormalEducation == "Primary/elementary school"){
-#   data_2017_filter$EducationLevel_clean <- "Primary School"
-# }else if(data_2017_filter$FormalEducation == "Secondary school"){
-#   data_2017_filter$EducationLevel_clean <- "Secondary school"
-# }else{
-#   data_2017_filter$EducationLevel_clean <- "others"
-# }
- 
-data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducation == "Bachelor's degree", "Bachelors", 
-                                                 ifelse(data_2017_filter$FormalEducation == "Master's degree", "Masters",
-                                                        ifelse(data_2017_filter$FormalEducation == "Some college/university study without earning a bachelor's degree", "Did not finish College/Uni",
-                                                               ifelse(data_2017_filter$FormalEducation == "I never completed any formal education", "Never completed any formal education",
-                                                                      ifelse(data_2017_filter$FormalEducation == "Primary/elementary school", "Primary school",
-                                                                             ifelse(data_2017_filter$FormalEducation == "Secondary school", "Secondary school", "Others" ))))))
-
-#DevType Analysis----
-
-data_2017_devtype_ini <- data_2017_filter %>%
-                         select(Respondent, DevType)
-  
-data_2017_devtype <- separate_rows(data_2017_devtype_ini,DevType,sep=";")
-
-data_2017_devtype$DevType <- trimws(data_2017_devtype$DevType)
-
-View(data_2017_devtype)
-
-#trims remove the spaces 
 
 #Language Analysis----
 
@@ -158,17 +111,6 @@ data_2017_language$Year <- "2017"
 
 View(data_2017_language)
 
-#Future Language Analysis----
-
-data_2017_futurelanguage_ini <- data_2017_filter %>%
-  select(Respondent, LanguageDesireNextYear)
-
-data_2017_futurelanguage <- separate_rows(data_2017_futurelanguage_ini, LanguageDesireNextYear, sep=";")
-
-
-data_2017_futurelanguage$LanguageDesireNextYear <- trimws(data_2017_futurelanguage$LanguageDesireNextYear)
-
-View(data_2017_futurelanguage)
 
 #Prepare the data for 2018----
 
@@ -177,24 +119,9 @@ View(data_2017_futurelanguage)
 # 2018 is de basis. Vanuit deze dataset is gewerkt om 2017 + 2018 hetzelfde te krijgen als 2018.
 
 data_2018_filter <- data_ini_2018 %>%
-                    select(Respondent, Country, Employment, DevType, FormalEducation, LanguageWorkedWith, LanguageDesireNextYear, 
-                           FrameworkWorkedWith, FrameworkDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear)
+  select(Respondent, Country, Employment, DevType, FormalEducation, LanguageWorkedWith, LanguageDesireNextYear, 
+         FrameworkWorkedWith, FrameworkDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear)
 
-data_2018_filter$educationlevel_clean <-  ifelse(data_2018_filter$FormalEducation == "Bachelorâ€™s degree (BA, BS, B.Eng., etc.)", "Bachelors", 
-                                                 ifelse(data_2018_filter$FormalEducation == "Masterâ€™s degree (MA, MS, M.Eng., MBA, etc.)", "Masters",
-                                                        ifelse(data_2018_filter$FormalEducation == "Some college/university study without earning a degree", "Did not finish College/Uni",
-                                                               ifelse(data_2018_filter$FormalEducation == "I never completed any formal education", "Never completed any formal education",
-                                                                      ifelse(data_2018_filter$FormalEducation == "Primary/elementary school", "Primary school",
-                                                                             ifelse(data_2018_filter$FormalEducation == "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)", "Secondary school", "Others" ))))))
-
-#DevType Analysis----
-
-data_2018_devtype_ini <- data_2018_filter %>%
-  select(Respondent, DevType)
-
-data_2018_devtype <- separate_rows(data_2018_devtype_ini,DevType,sep=";")
-
-data_2018_devtype$DevType <- trimws(data_2018_devtype$DevType)
 
 #Language Analysis----
 
@@ -208,42 +135,13 @@ data_2018_language$LanguageWorkedWith <- trimws(data_2018_language$LanguageWorke
 data_2018_language$Year <- "2018"
 
 
-#Future Language Analysis----
-
-data_2018_futurelanguage_ini <- data_2018_filter %>%
-  select(Respondent, LanguageDesireNextYear)
-
-data_2018_futurelanguage <- separate_rows(data_2018_futurelanguage_ini, LanguageDesireNextYear, sep=";")
-
-data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_futurelanguage$LanguageDesireNextYear)
-
-
-#Prepare the data for 2019----
-
 #Select the required columns----
 
 data_2019_filter <- data_ini_2019 %>%
-                    select(Respondent, Country, Employment, DevType, EdLevel, LanguageWorkedWith, LanguageDesireNextYear, 
-                           WebFrameWorkedWith, WebFrameDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear) %>%
-                    rename(FormalEducation = EdLevel, FrameworkWorkedWith = WebFrameWorkedWith, FrameworkDesireNextYear = WebFrameDesireNextYear )
+  select(Respondent, Country, Employment, DevType, EdLevel, LanguageWorkedWith, LanguageDesireNextYear, 
+         WebFrameWorkedWith, WebFrameDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear) %>%
+  rename(FormalEducation = EdLevel, FrameworkWorkedWith = WebFrameWorkedWith, FrameworkDesireNextYear = WebFrameDesireNextYear )
 
-# ADDED. WHEN NEEDED WE CAN USE IT. FOR NOW NOT NEEDED.
-
-data_2019_filter$educationlevel_clean <-  ifelse(data_2019_filter$FormalEducation == "Bachelorâ€™s degree (BA, BS, B.Eng., etc.)", "Bachelors", 
-                                                 ifelse(data_2019_filter$FormalEducation == "Masterâ€™s degree (MA, MS, M.Eng., MBA, etc.)", "Masters",
-                                                        ifelse(data_2019_filter$FormalEducation == "Some college/university study without earning a degree", "Did not finish College/Uni",
-                                                               ifelse(data_2019_filter$FormalEducation == "I never completed any formal education", "Never completed any formal education",
-                                                                      ifelse(data_2019_filter$FormalEducation == "Primary/elementary school", "Primary school",
-                                                                             ifelse(data_2019_filter$FormalEducation == "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)", "Secondary school", "Others" ))))))
-
-#DevType Analysis----
-
-data_2019_devtype_ini <- data_2019_filter %>%
-  select(Respondent, DevType)
-
-data_2019_devtype <- separate_rows(data_2019_devtype_ini,DevType,sep=";")
-
-data_2019_devtype$DevType <- trimws(data_2019_devtype$DevType)
 
 #Language Analysis----
 
@@ -256,15 +154,6 @@ data_2019_language$LanguageWorkedWith <- trimws(data_2019_language$LanguageWorke
 
 data_2019_language$Year <- "2019"
 
-
-#Future Language Analysis----
-
-data_2019_futurelanguage_ini <- data_2019_filter %>%
-  select(Respondent, LanguageDesireNextYear)
-
-data_2019_futurelanguage <- separate_rows(data_2019_futurelanguage_ini, LanguageDesireNextYear, sep=";")
-
-data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelanguage$LanguageDesireNextYear)
 
 
 #Aggregated data sets----
@@ -284,26 +173,27 @@ View(data_language_clean)
 
 # Extra kolom toegevoegd. Geeft het totaal users weer wat met de programmeer taal gewerkt heeft PER jaartal en PER programmeertaal!
 data_language_dt <- data_language_clean %>%
-                    group_by(LanguageWorkedWith, Year) %>%
-                    summarize(users = n_distinct(Respondent))
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
 
 View(data_language_dt)
 
 # Deze variabele geeft een overall overzicht van het aantal users PER jaar uit de data_language variabele. 
 # Waarin alle respondenten verwerkt zijn.
 users_by_year <- data_language %>%
-                  group_by(Year) %>%
-                  summarize(overall_users = n_distinct(Respondent))
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
 
 View(users_by_year)
 
 # Vertelt hoevaak de programmeer taal voorkomt. Per jaar. dus staat er 1 dan komt die 1x in de survey voor. Staat er 2 dan komt de 
 # taal 2 keer bij 3x komt die in alle 3 survey's voor.
 languages_presence <- data_language %>%
-                        group_by(LanguageWorkedWith) %>%
-                        summarize(presence = n_distinct(Year))
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
 
 View(languages_presence)
+
 
 #Voegt beide varialele toe tot 1 compleet variabele.
 data_language_dt_percent <- merge(data_language_dt, users_by_year)
@@ -322,9 +212,9 @@ data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/da
 # Maakt deze kolom als waarde getallen (numerich/integer)
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1  
+# Deze gebruiken bij Visualisatie. Zodat de talen duidelijk zijn. Als 2e de andere plot 
 data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
-
 
 
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
@@ -337,6 +227,11 @@ data_language_ggplot_grid = ggplot(data_language_dt_percent) +
 data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
 data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout)
+
+
+
+
+# ANALYSE OF THE NETHERLANDS  ############################################################################################
 
 #Reference------
 
@@ -389,14 +284,14 @@ data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language
 # Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
 
-# Maakt deze kolom als waarde getallen (numerich/integer)
+
 data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
 
 #Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
 data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
-  
+
 
 #Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
 data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
@@ -408,7 +303,6 @@ data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) +
 data_language_ggplot_grid_layout_nl <- ggplotGrob(data_language_ggplot_grid_nl)
 data_language_ggplot_grid_layout_nl$layout$clip[data_language_ggplot_grid_layout_nl$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout_nl)
-
 
 
 
