@@ -256,6 +256,8 @@ data_2019_language$LanguageWorkedWith <- trimws(data_2019_language$LanguageWorke
 
 data_2019_language$Year <- "2019"
 
+View(data_2019_language)
+
 
 #Future Language Analysis----
 
@@ -299,6 +301,8 @@ languages_presence <- data_language %>%
 View(languages_presence)
 
 data_language_dt_percent <- merge(data_language_dt, users_by_year)
+
+View(data_language_dt_percent)
 
 data_language_dt_percent <- merge(data_language_dt_percent, languages_presence)
 
