@@ -267,7 +267,7 @@ data_2019_futurelanguage <- separate_rows(data_2019_futurelanguage_ini, Language
 data_2019_futurelanguage$LanguageDesireNextYear <- trimws(data_2019_futurelanguage$LanguageDesireNextYear)
 
 
-#Aggregated data sets----
+#Aggregated data sets-----
 
 #Create the World distribution plot of popular programming languages-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 

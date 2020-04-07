@@ -102,8 +102,7 @@ plot(data_surveypwc_language,LanguageWorkedWith,type="l",lwd=3)
 
 #Aggregated data sets----
 
-#Create the World distribution plot of popular programming languages-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
 
 survey_language <- rbind(data_surveypwc_language)
 
