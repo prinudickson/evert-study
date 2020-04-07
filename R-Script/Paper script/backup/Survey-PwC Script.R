@@ -27,23 +27,13 @@ getwd()
 setwd("C:/Users/esteur002/Documents/GitHub/evert-study")
 setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study")
 
-#data for 2016
-
-data_ini_2016 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2016/2016 Stack Overflow Survey Responses.csv")
 
 
-#data for 2017
-data_ini_2017 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_public.csv")
+#Data from PwC-Survey 2020
+data_surveypwc <- read_excel("GitHub/evert-study/data/Survey-PwC/Survey-PwC.xlsx",col_types = c("text", "text", "text","text","text", "text", "text", "text","text"))
 
-data_schema_2017 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2017/survey_results_schema.csv")
+View(data_surveypwc)
 
-
-#data for 2018
-data_ini_2018 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2018/survey_results_public.csv")
-
-
-#data for 2019
-data_ini_2019 <- read_csv(file = "C:/Users/Steur/OneDrive/Documenten/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
 
 
 # Onderstaande geeft wat meer duidelijkheid / inzicht / feeling in de DataSets.
@@ -54,23 +44,23 @@ str(data_ini_2019)
 dim(data_ini_2019)
 
 # Geeft alle Variable / kolom namen weer uit de Dataset. 
-names(data_ini_2019)
+names(data_surveypwc)
 
 # Geeft een samenvatting van de Data
 summary(data_ini_2019)
 
 
 # Aantal rijen dataset laten zien
-nrow(data_ini_2019)
+nrow(data_surveypwc)
 
 #Aantal kolommen dataset laten zien
-ncol(data_ini_2019)
+ncol(data_surveypwc)
 
 # 1e 10 rijen weergeven van dataset     
 head(data_ini_2019,  10)
 
 # Laat de Dataset zien per kolom.
-View(data_ini_2019)
+View(data_surveypwc)
 
 
 
@@ -85,11 +75,11 @@ View(data_ini_2019)
 
 
 data_2017_filter <- data_ini_2017 %>%
-                    select(Respondent, Country, EmploymentStatus, DeveloperType, FormalEducation, HaveWorkedLanguage, WantWorkLanguage, 
-                           HaveWorkedFramework, WantWorkFramework, HaveWorkedDatabase, WantWorkDatabase, HaveWorkedPlatform, WantWorkPlatform) %>%
-                    rename(Employment = EmploymentStatus, DevType = DeveloperType, LanguageWorkedWith = HaveWorkedLanguage, LanguageDesireNextYear = WantWorkLanguage, 
-                           FrameworkWorkedWith = HaveWorkedFramework, FrameworkDesireNextYear = WantWorkFramework, DatabaseWorkedWith = HaveWorkedDatabase,
-                           DatabaseDesireNextYear = WantWorkDatabase, PlatformWorkedWith = HaveWorkedPlatform, PlatformDesireNextYear = WantWorkPlatform)
+  select(Respondent, Country, EmploymentStatus, DeveloperType, FormalEducation, HaveWorkedLanguage, WantWorkLanguage, 
+         HaveWorkedFramework, WantWorkFramework, HaveWorkedDatabase, WantWorkDatabase, HaveWorkedPlatform, WantWorkPlatform) %>%
+  rename(Employment = EmploymentStatus, DevType = DeveloperType, LanguageWorkedWith = HaveWorkedLanguage, LanguageDesireNextYear = WantWorkLanguage, 
+         FrameworkWorkedWith = HaveWorkedFramework, FrameworkDesireNextYear = WantWorkFramework, DatabaseWorkedWith = HaveWorkedDatabase,
+         DatabaseDesireNextYear = WantWorkDatabase, PlatformWorkedWith = HaveWorkedPlatform, PlatformDesireNextYear = WantWorkPlatform)
 
 
 #Data Cleaning 2017 1----
@@ -124,7 +114,7 @@ data_2017_filter$FormalEducation <- as.character(data_2017_filter$FormalEducatio
 # }else{
 #   data_2017_filter$EducationLevel_clean <- "others"
 # }
- 
+
 data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducation == "Bachelor's degree", "Bachelors", 
                                                  ifelse(data_2017_filter$FormalEducation == "Master's degree", "Masters",
                                                         ifelse(data_2017_filter$FormalEducation == "Some college/university study without earning a bachelor's degree", "Did not finish College/Uni",
@@ -135,8 +125,8 @@ data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducatio
 #DevType Analysis----
 
 data_2017_devtype_ini <- data_2017_filter %>%
-                         select(Respondent, DevType)
-  
+  select(Respondent, DevType)
+
 data_2017_devtype <- separate_rows(data_2017_devtype_ini,DevType,sep=";")
 
 data_2017_devtype$DevType <- trimws(data_2017_devtype$DevType)
@@ -177,8 +167,8 @@ View(data_2017_futurelanguage)
 # 2018 is de basis. Vanuit deze dataset is gewerkt om 2017 + 2018 hetzelfde te krijgen als 2018.
 
 data_2018_filter <- data_ini_2018 %>%
-                    select(Respondent, Country, Employment, DevType, FormalEducation, LanguageWorkedWith, LanguageDesireNextYear, 
-                           FrameworkWorkedWith, FrameworkDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear)
+  select(Respondent, Country, Employment, DevType, FormalEducation, LanguageWorkedWith, LanguageDesireNextYear, 
+         FrameworkWorkedWith, FrameworkDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear)
 
 data_2018_filter$educationlevel_clean <-  ifelse(data_2018_filter$FormalEducation == "Bachelorâ€™s degree (BA, BS, B.Eng., etc.)", "Bachelors", 
                                                  ifelse(data_2018_filter$FormalEducation == "Masterâ€™s degree (MA, MS, M.Eng., MBA, etc.)", "Masters",
@@ -223,9 +213,9 @@ data_2018_futurelanguage$LanguageDesireNextYear <- trimws(data_2018_futurelangua
 #Select the required columns----
 
 data_2019_filter <- data_ini_2019 %>%
-                    select(Respondent, Country, Employment, DevType, EdLevel, LanguageWorkedWith, LanguageDesireNextYear, 
-                           WebFrameWorkedWith, WebFrameDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear) %>%
-                    rename(FormalEducation = EdLevel, FrameworkWorkedWith = WebFrameWorkedWith, FrameworkDesireNextYear = WebFrameDesireNextYear )
+  select(Respondent, Country, Employment, DevType, EdLevel, LanguageWorkedWith, LanguageDesireNextYear, 
+         WebFrameWorkedWith, WebFrameDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear) %>%
+  rename(FormalEducation = EdLevel, FrameworkWorkedWith = WebFrameWorkedWith, FrameworkDesireNextYear = WebFrameDesireNextYear )
 
 # ADDED. WHEN NEEDED WE CAN USE IT. FOR NOW NOT NEEDED.
 
@@ -256,8 +246,6 @@ data_2019_language$LanguageWorkedWith <- trimws(data_2019_language$LanguageWorke
 
 data_2019_language$Year <- "2019"
 
-View(data_2019_language)
-
 
 #Future Language Analysis----
 
@@ -283,26 +271,24 @@ data_language_clean<- na.omit(data_language, cols = "LanguageWorkedWith")
 View(data_language_clean)
 
 data_language_dt <- data_language_clean %>%
-                    group_by(LanguageWorkedWith, Year) %>%
-                    summarize(users = n_distinct(Respondent))
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
 
 View(data_language_dt)
 
 users_by_year <- data_language %>%
-                  group_by(Year) %>%
-                  summarize(overall_users = n_distinct(Respondent))
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
 
 View(users_by_year)
 
 languages_presence <- data_language %>%
-                        group_by(LanguageWorkedWith) %>%
-                        summarize(presence = n_distinct(Year))
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
 
 View(languages_presence)
 
 data_language_dt_percent <- merge(data_language_dt, users_by_year)
-
-View(data_language_dt_percent)
 
 data_language_dt_percent <- merge(data_language_dt_percent, languages_presence)
 
@@ -327,58 +313,3 @@ data_language_ggplot_grid = ggplot(data_language_dt_percent) +
 data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
 data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout)
-
-#Reference------
-
-#For the line graph generator----
-#https://stackoverflow.com/questions/29357612/plot-labels-at-ends-of-lines
-
-#Create the Netherlands distribution plot of popular programming languages-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
-
-data_language_clean_nl <- data_language_clean %>%
-  filter(Country == "Netherlands")
-
-data_language_dt_nl <- data_language_clean_nl %>%
-  group_by(LanguageWorkedWith, Year) %>%
-  summarize(users = n_distinct(Respondent))
-
-users_by_year_nl <- data_language %>%
-  filter(Country == "Netherlands")%>%
-  group_by(Year) %>%
-  summarize(overall_users = n_distinct(Respondent))
-
-languages_presence_nl <- data_language  %>%
-  filter(Country == "Netherlands")%>%
-  group_by(LanguageWorkedWith) %>%
-  summarize(presence = n_distinct(Year))
-
-data_language_dt_percent_nl <- merge(data_language_dt_nl, users_by_year_nl)
-
-data_language_dt_percent_nl <- merge(data_language_dt_percent_nl, languages_presence_nl)
-
-data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3)
-
-data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
-
-data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
-
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
-data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
-
-
-
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
-data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
-  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
-  geom_text(data = subset(data_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
-  scale_colour_discrete(guide = 'none')  +    
-  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
-
-data_language_ggplot_grid_layout_nl <- ggplotGrob(data_language_ggplot_grid_nl)
-data_language_ggplot_grid_layout_nl$layout$clip[data_language_ggplot_grid_layout_nl$layout$name == "panel"] <- "off"
-grid.draw(data_language_ggplot_grid_layout_nl)
-
-
-
-
