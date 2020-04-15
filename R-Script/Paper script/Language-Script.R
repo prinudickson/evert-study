@@ -13,18 +13,18 @@ install.packages("grid")
 library("readr")
 library("dplyr")
 library("tidyr")
-library("janitor")
+# library("janitor")
 library("ggplot2")
-library("reshape2")
-library("data.table")
-library("htmlwidgets")
+# library("reshape2")
+# library("data.table")
+# library("htmlwidgets")
 library("grid")
 
 
-#working directory----
+# Get Working directory----
 getwd()
 
-#Set this based on your laptop's working directory
+# Set Working Directory
 setwd("C:/Users/esteur002/Documents/GitHub/evert-study")
 setwd("C:/Users/evert/OneDrive/Documenten/GitHub/evert-study")
 
@@ -134,6 +134,9 @@ data_2018_language$LanguageWorkedWith <- trimws(data_2018_language$LanguageWorke
 
 data_2018_language$Year <- "2018"
 
+data_2018_language$LanguageWorkedWith <- ifelse(data_2018_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_language$LanguageWorkedWith)
+
+View(data_2018_language)
 
 #Select the required columns----
 
@@ -154,12 +157,14 @@ data_2019_language$LanguageWorkedWith <- trimws(data_2019_language$LanguageWorke
 
 data_2019_language$Year <- "2019"
 
+data_2019_language$LanguageWorkedWith <- ifelse(data_2019_language$LanguageWorkedWith=="Bash/Shell/PowerShell", "Bash/Shell/PowerShell", data_2019_language$LanguageWorkedWith)
 
+View(data_2019_language)
 
 #Aggregated data sets----
 
-#Create the World distribution plot of popular programming languages-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+# Plot van de wereld distributie programmeer talen--------
+
 
 # Combineert alle 3 Language per jaar tot 1 variabele
 data_language <- rbind(data_2017_language, data_2018_language, data_2019_language)
@@ -212,12 +217,12 @@ data_language_dt_percent$distribution <- (data_language_dt_percent$users)*100/da
 # Maakt deze kolom als waarde getallen (numerich/integer)
 data_language_dt_percent$Year <- as.integer(data_language_dt_percent$Year)
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1  
-# Deze gebruiken bij Visualisatie. Zodat de talen duidelijk zijn. Als 2e de andere plot 
+#Lijn grafiek met de verandering van programmeer talen wereldwijd van 2017 - 2019 1 
 data_language_ggplot <- ggplot(data_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
+# Legenda wordt bepaald vanuit kolom LanguageWorkedWith. Dit zodat elke programmeer taal in de visualisatie verwerkt wordt.
 
-#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+#Lijn grafiek met de verandering van programmeer talen wereldwijd van 2017 - 2019 2
 data_language_ggplot_grid = ggplot(data_language_dt_percent) + 
   geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
   geom_text(data = subset(data_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
@@ -228,16 +233,16 @@ data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
 data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout)
 
+ 
 
-
-
-# ANALYSE OF THE NETHERLANDS  ############################################################################################
+# ANALYSE PROGRAMEERTALEN NEDERLAND  ############################################################################################
 
 #Reference------
 
 #For the line graph generator----
 #https://stackoverflow.com/questions/29357612/plot-labels-at-ends-of-lines
 
+#Maakt een lijngrafiek van de distributie programmeertalen voor Nederland.
 #Create the Netherlands distribution plot of popular programming languages-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
 
@@ -284,16 +289,14 @@ data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language
 # Maakt een extra kolom aan Distribution die de totale verdeling weergeeft.
 data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
 
-
+# Maakt deze kolom als waarde getallen (numerich/integer)
 data_language_dt_percent_nl$Year <- as.integer(data_language_dt_percent_nl$Year)
 
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 1
+#Lijn grafiek met de verandering van programmeer talen Nederland van 2017 - 2019 1
 data_language_ggplot_nl <- ggplot(data_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
-
-
-#Line graphs of the percentage change of programming laguages in the Netherlands from 2017 - 2019 2
+#Lijn grafiek met de verandering van programmeer talen Nederland van 2017 - 2019 2
 data_language_ggplot_grid_nl = ggplot(data_language_dt_percent_nl) + 
   geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
   geom_text(data = subset(data_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +

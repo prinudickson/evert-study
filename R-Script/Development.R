@@ -4,6 +4,7 @@ library(tidyr)
 library(data.table)
 
 dataset <- read_csv ("C:/Users/Steur/Documents/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
+dataset <- read_csv ("C:/Users/esteur002/Documents/GitHub/evert-study/data/developer_survey_2019/survey_results_public.csv")
 View(dataset)
 
 dataset1 <- dataset %>%
@@ -52,7 +53,7 @@ NL <- dataset %>%
 library(ggplot2)
 
 ggplot(NL, aes( x =A, y = n)) + 
-  geom_bar()
+  geom_col()
 
 
 
