@@ -74,22 +74,6 @@ data_2017_filter <- filter(data_2017_filter, Employment != "I prefer not to say"
 #Creating a common Education level.
 
 data_2017_filter$FormalEducation <- as.character(data_2017_filter$FormalEducation)
-
-# if(as.character(data_2017_filter$FormalEducation) == "Bachelor's degree"){
-#   data_2017_filter$EducationLevel_clean <- "Bachelors"
-# } else if(data_2017_filter$FormalEducation == "Master's degree"){
-#   data_2017_filter$EducationLevel_clean <-  "Masters"
-# } else if (data_2017_filter$FormalEducation == "Some college/university study without earning a bachelor's degree") {
-#   data_2017_filter$EducationLevel_clean <- "Did not finish college/Uni"  
-# }else if(data_2017_filter$FormalEducation == "I never completed any formal education"){
-#   data_2017_filter$EducationLevel_clean <- "Never completed any formal education"
-# } else if(data_2017_filter$FormalEducation == "Primary/elementary school"){
-#   data_2017_filter$EducationLevel_clean <- "Primary School"
-# }else if(data_2017_filter$FormalEducation == "Secondary school"){
-#   data_2017_filter$EducationLevel_clean <- "Secondary school"
-# }else{
-#   data_2017_filter$EducationLevel_clean <- "others"
-# }
  
 data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducation == "Bachelor's degree", "Bachelors", 
                                                  ifelse(data_2017_filter$FormalEducation == "Master's degree", "Masters",
@@ -116,9 +100,9 @@ data_2017_devtype$devtype_clean <-  ifelse(data_2017_devtype$DevType == "Develop
                                                                              ifelse(data_2017_devtype$DevType == "Machine learning specialist", "Developer",
                                                                                     ifelse(data_2017_devtype$DevType == "Data scientist", "Developer",
                                                                                            ifelse(data_2017_devtype$DevType == "Graphics programming", "Developer",
-                                                                                                  ifelse(data_2017_devtype$DevType == "Systems administrator", "Sys/Db Admin",
-                                                                                                         ifelse(data_2017_devtype$DevType == "Database administrator", "Sys/Db Admin",
-                                                                                                                ifelse(data_2017_devtype$DevType == "DevOps specialist", "Sys/Db Admin", "Others" )))))))))))
+                                                                                                  ifelse(data_2017_devtype$DevType == "Systems administrator", "Sys Admin",
+                                                                                                         ifelse(data_2017_devtype$DevType == "Database administrator", "Db Admin",
+                                                                                                                ifelse(data_2017_devtype$DevType == "DevOps specialist", "DevOps", "Others" )))))))))))
 
 users_by_year_2017 <- data_2017_devtype %>%
                       summarize(overall_users = n_distinct(Respondent))
@@ -151,17 +135,29 @@ data_2017_developer_language$LanguageWorkedWith <- trimws(data_2017_developer_la
 data_2017_developer_language$Year <- "2017"
 
 
-#Admin Language Analysis----
+#Sys Admin Language Analysis----
 
-data_2017_admin_language_ini <- data_2017_filter %>%
-  filter(Respondent %in% subset(data_2017_devtype$Respondent, data_2017_devtype$devtype_clean == "Sys/Db Admin")) %>%
+data_2017_sys_admin_language_ini <- data_2017_filter %>%
+  filter(Respondent %in% subset(data_2017_devtype$Respondent, data_2017_devtype$devtype_clean == "Sys Admin")) %>%
   select(Respondent, LanguageWorkedWith, Country)
 
-data_2017_admin_language <- separate_rows(data_2017_admin_language_ini, LanguageWorkedWith, sep=";")
+data_2017_sys_admin_language <- separate_rows(data_2017_sys_admin_language_ini, LanguageWorkedWith, sep=";")
 
-data_2017_admin_language$LanguageWorkedWith <- trimws(data_2017_admin_language$LanguageWorkedWith)
+data_2017_sys_admin_language$LanguageWorkedWith <- trimws(data_2017_sys_admin_language$LanguageWorkedWith)
 
-data_2017_admin_language$Year <- "2017"
+data_2017_sys_admin_language$Year <- "2017"
+
+#Db Admin Language Analysis----
+
+data_2017_db_admin_language_ini <- data_2017_filter %>%
+  filter(Respondent %in% subset(data_2017_devtype$Respondent, data_2017_devtype$devtype_clean == "Db Admin")) %>%
+  select(Respondent, LanguageWorkedWith, Country)
+
+data_2017_db_admin_language <- separate_rows(data_2017_db_admin_language_ini, LanguageWorkedWith, sep=";")
+
+data_2017_db_admin_language$LanguageWorkedWith <- trimws(data_2017_db_admin_language$LanguageWorkedWith)
+
+data_2017_db_admin_language$Year <- "2017"
 
 #Future Language Analysis----
 
@@ -206,9 +202,9 @@ data_2018_devtype$devtype_clean <-  ifelse(data_2018_devtype$DevType == "Back-en
                                                                               ifelse(data_2018_devtype$DevType == "Data scientist", "Developer",
                                                                                      ifelse(data_2018_devtype$DevType == "Game or graphics developer", "Developer",
                                                                                             ifelse(data_2018_devtype$DevType == "Front-end developer", "Developer",
-                                                                                                  ifelse(data_2018_devtype$DevType == "Systems administrator", "Sys/Db Admin",
-                                                                                                         ifelse(data_2018_devtype$DevType == "Database administrator", "Sys/Db Admin",
-                                                                                                                ifelse(data_2018_devtype$DevType == "DevOps specialist", "Sys/Db Admin", "Others" ))))))))))))
+                                                                                                  ifelse(data_2018_devtype$DevType == "Systems administrator", "Sys Admin",
+                                                                                                         ifelse(data_2018_devtype$DevType == "Database administrator", "Db Admin",
+                                                                                                                ifelse(data_2018_devtype$DevType == "DevOps specialist", "DevOps", "Others" ))))))))))))
 
 
 users_by_year_2018 <- data_2018_devtype %>%
@@ -244,17 +240,29 @@ data_2018_developer_language$LanguageWorkedWith <- trimws(data_2018_developer_la
 data_2018_developer_language$Year <- "2018"
 
 
-#Admin Language Analysis----
+#Sys Admin Language Analysis----
 
-data_2018_admin_language_ini <- data_2018_filter %>%
-  filter(Respondent %in% subset(data_2018_devtype$Respondent, data_2018_devtype$devtype_clean == "Sys/Db Admin")) %>%
+data_2018_sys_admin_language_ini <- data_2018_filter %>%
+  filter(Respondent %in% subset(data_2018_devtype$Respondent, data_2018_devtype$devtype_clean == "Sys Admin")) %>%
   select(Respondent, LanguageWorkedWith, Country)
 
-data_2018_admin_language <- separate_rows(data_2018_admin_language_ini, LanguageWorkedWith, sep=";")
+data_2018_sys_admin_language <- separate_rows(data_2018_sys_admin_language_ini, LanguageWorkedWith, sep=";")
 
-data_2018_admin_language$LanguageWorkedWith <- trimws(data_2018_admin_language$LanguageWorkedWith)
+data_2018_sys_admin_language$LanguageWorkedWith <- trimws(data_2018_sys_admin_language$LanguageWorkedWith)
 
-data_2018_admin_language$Year <- "2018"
+data_2018_sys_admin_language$Year <- "2018"
+
+#Db Admin Language Analysis----
+
+data_2018_db_admin_language_ini <- data_2018_filter %>%
+  filter(Respondent %in% subset(data_2018_devtype$Respondent, data_2018_devtype$devtype_clean == "Db Admin")) %>%
+  select(Respondent, LanguageWorkedWith, Country)
+
+data_2018_db_admin_language <- separate_rows(data_2018_db_admin_language_ini, LanguageWorkedWith, sep=";")
+
+data_2018_db_admin_language$LanguageWorkedWith <- trimws(data_2018_db_admin_language$LanguageWorkedWith)
+
+data_2018_db_admin_language$Year <- "2018"
 
 #Future Language Analysis----
 
@@ -300,9 +308,9 @@ data_2019_devtype$devtype_clean <-  ifelse(data_2019_devtype$DevType == "Develop
                                                                               ifelse(data_2019_devtype$DevType == "Developer, back-end", "Developer",
                                                                                      ifelse(data_2019_devtype$DevType == "Developer, front-end", "Developer",
                                                                                             ifelse(data_2019_devtype$DevType == "Developer, mobile", "Developer",
-                                                                                                   ifelse(data_2019_devtype$DevType == "Systems administrator", "Sys/Db Admin",
-                                                                                                          ifelse(data_2019_devtype$DevType == "Database administrator", "Sys/Db Admin",
-                                                                                                                 ifelse(data_2019_devtype$DevType == "DevOps specialist", "Sys/Db Admin", "Others" ))))))))))))
+                                                                                                   ifelse(data_2019_devtype$DevType == "Systems administrator", "Sys Admin",
+                                                                                                          ifelse(data_2019_devtype$DevType == "Database administrator", "Db Admin",
+                                                                                                                 ifelse(data_2019_devtype$DevType == "DevOps specialist", "DevOps", "Others" ))))))))))))
 
 
 users_by_year_2019 <- data_2019_devtype %>%
@@ -336,17 +344,29 @@ data_2019_developer_language$LanguageWorkedWith <- trimws(data_2019_developer_la
 data_2019_developer_language$Year <- "2018"
 
 
-#Admin Language Analysis----
+#Sys Admin Language Analysis----
 
-data_2019_admin_language_ini <- data_2019_filter %>%
-  filter(Respondent %in% subset(data_2019_devtype$Respondent, data_2019_devtype$devtype_clean == "Sys/Db Admin")) %>%
+data_2019_sys_admin_language_ini <- data_2019_filter %>%
+  filter(Respondent %in% subset(data_2019_devtype$Respondent, data_2019_devtype$devtype_clean == "Sys Admin")) %>%
   select(Respondent, LanguageWorkedWith, Country)
 
-data_2019_admin_language <- separate_rows(data_2019_admin_language_ini, LanguageWorkedWith, sep=";")
+data_2019_sys_admin_language <- separate_rows(data_2019_sys_admin_language_ini, LanguageWorkedWith, sep=";")
 
-data_2019_admin_language$LanguageWorkedWith <- trimws(data_2019_admin_language$LanguageWorkedWith)
+data_2019_sys_admin_language$LanguageWorkedWith <- trimws(data_2019_sys_admin_language$LanguageWorkedWith)
 
-data_2019_admin_language$Year <- "2018"
+data_2019_sys_admin_language$Year <- "2019"
+
+#Db Admin Language Analysis----
+
+data_2019_db_admin_language_ini <- data_2019_filter %>%
+  filter(Respondent %in% subset(data_2019_devtype$Respondent, data_2019_devtype$devtype_clean == "Db Admin")) %>%
+  select(Respondent, LanguageWorkedWith, Country)
+
+data_2019_db_admin_language <- separate_rows(data_2019_db_admin_language_ini, LanguageWorkedWith, sep=";")
+
+data_2019_db_admin_language$LanguageWorkedWith <- trimws(data_2019_db_admin_language$LanguageWorkedWith)
+
+data_2019_db_admin_language$Year <- "2019"
 
 #Future Language Analysis----
 
@@ -458,9 +478,12 @@ data_language_ggplot_grid_layout_nl <- ggplotGrob(data_language_ggplot_grid_nl)
 data_language_ggplot_grid_layout_nl$layout$clip[data_language_ggplot_grid_layout_nl$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout_nl)
 
+
+
 #Create the World distribution plot of popular programming languages for Developers-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
 
 
 #Create the World distribution plot of popular programming languages for System Admins / Database Admins-----
 #Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
