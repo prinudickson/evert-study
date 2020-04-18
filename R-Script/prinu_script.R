@@ -807,6 +807,75 @@ data_db_admin_language_nl_ggplot_grid_layout$layout$clip[data_db_admin_language_
 grid.draw(data_db_admin_language_nl_ggplot_grid_layout)
 
 
+#Create the top 5 programming language for Developers----
+
+#We are only going to use the 2019 data set for this. 
+#We are going to identify the top 5 programming languages for Developers and show them in a bar graph.
+
+developers_language_top5 <- data_developer_language_dt_percent %>%
+                            filter(Year == 2019)
+
+developers_language_top5 <- arrange(developers_language_top5, desc(users)) %>%
+                              mutate(rank = 1:nrow(developers_language_top5)) %>%
+                              filter(rank < 6)
+
+developers_language_top5_ggplot <-ggplot(developers_language_top5, aes(LanguageWorkedWith, users))
+developers_language_top5_ggplot + geom_bar(stat = "identity", aes(fill = LanguageWorkedWith)) + theme_bw()
+
+
+#Create the top 5 programming language for Sys Admins----
+
+#We are only going to use the 2019 data set for this. 
+#We are going to identify the top 5 programming languages for Sys admins and show them in a bar graph.
+
+sys_admin_language_top5 <- data_sys_admin_language_dt_percent %>%
+  filter(Year == 2019)
+
+sys_admin_language_top5 <- arrange(sys_admin_language_top5, desc(users)) %>%
+  mutate(rank = 1:nrow(sys_admin_language_top5)) %>%
+  filter(rank < 6)
+
+sys_admin_language_top5_ggplot <-ggplot(sys_admin_language_top5, aes(LanguageWorkedWith, users))
+sys_admin_language_top5_ggplot + geom_bar(stat = "identity", aes(fill = LanguageWorkedWith)) + theme_bw()
+
+
+#Create the top 5 programming language for Db Admins----
+
+#We are only going to use the 2019 data set for this. 
+#We are going to identify the top 5 programming languages for Db admins and show them in a bar graph.
+
+db_admin_language_top5 <- data_db_admin_language_dt_percent %>%
+  filter(Year == 2019)
+
+db_admin_language_top5 <- arrange(db_admin_language_top5, desc(users)) %>%
+  mutate(rank = 1:nrow(db_admin_language_top5)) %>%
+  filter(rank < 6)
+
+db_admin_language_top5_ggplot <-ggplot(db_admin_language_top5, aes(LanguageWorkedWith, users))
+db_admin_language_top5_ggplot + geom_bar(stat = "identity", aes(fill = LanguageWorkedWith)) + theme_bw()
+
+
+#Create the barchart of number of respondents to the Stackoverflow survey every year----
+
+users_by_year_ggplot <- ggplot(users_by_year, aes(Year, overall_users))
+users_by_year_ggplot + geom_bar(stat = "identity", aes(fill = Year)) + theme_bw()
+
+#Create the percentage of Developers to Sys admins to db admins every year----
+
+cols <- c("Year", "db_admins")
+colnames(db_admin_by_year) <- cols
+
+cols <- c("Year", "sys_admins")
+colnames(sys_admin_by_year) <- cols
+
+cols <- c("Year", "developers")
+colnames(developers_by_year) <- cols
+
+devtype_distribution <- cbind(developers_by_year, sys_admin_by_year, db_admin_by_year)
+
+devtype_distribution <- devtype_distribution[, !duplicated(colnames(devtype_distribution))]
+
+devtype_distribution_wide <- melt(setDT(devtype_distribution), variable.name = "DevType")
 
 
 
