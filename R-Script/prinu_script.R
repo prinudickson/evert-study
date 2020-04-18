@@ -82,6 +82,8 @@ data_2017_filter$educationlevel_clean <-  ifelse(data_2017_filter$FormalEducatio
                                                                       ifelse(data_2017_filter$FormalEducation == "Primary/elementary school", "Primary school",
                                                                              ifelse(data_2017_filter$FormalEducation == "Secondary school", "Secondary school", "Others" ))))))
 
+
+
 #DevType Analysis----
 
 data_2017_devtype_ini <- data_2017_filter %>%
@@ -120,6 +122,8 @@ data_2017_language <- separate_rows(data_2017_language_ini, LanguageWorkedWith, 
 
 data_2017_language$LanguageWorkedWith <- trimws(data_2017_language$LanguageWorkedWith)
 
+data_2017_language$LanguageWorkedWith <- ifelse(data_2017_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2017_language$LanguageWorkedWith)
+
 data_2017_language$Year <- "2017"
 
 #Developer Language Analysis----
@@ -131,6 +135,8 @@ data_2017_developer_language_ini <- data_2017_filter %>%
 data_2017_developer_language <- separate_rows(data_2017_developer_language_ini, LanguageWorkedWith, sep=";")
 
 data_2017_developer_language$LanguageWorkedWith <- trimws(data_2017_developer_language$LanguageWorkedWith)
+
+data_2017_developer_language$LanguageWorkedWith <- ifelse(data_2017_developer_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2017_developer_language$LanguageWorkedWith)
 
 data_2017_developer_language$Year <- "2017"
 
@@ -145,6 +151,8 @@ data_2017_sys_admin_language <- separate_rows(data_2017_sys_admin_language_ini, 
 
 data_2017_sys_admin_language$LanguageWorkedWith <- trimws(data_2017_sys_admin_language$LanguageWorkedWith)
 
+data_2017_sys_admin_language$LanguageWorkedWith <- ifelse(data_2017_sys_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2017_sys_admin_language$LanguageWorkedWith)
+
 data_2017_sys_admin_language$Year <- "2017"
 
 #Db Admin Language Analysis----
@@ -156,6 +164,8 @@ data_2017_db_admin_language_ini <- data_2017_filter %>%
 data_2017_db_admin_language <- separate_rows(data_2017_db_admin_language_ini, LanguageWorkedWith, sep=";")
 
 data_2017_db_admin_language$LanguageWorkedWith <- trimws(data_2017_db_admin_language$LanguageWorkedWith)
+
+data_2017_db_admin_language$LanguageWorkedWith <- ifelse(data_2017_db_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2017_db_admin_language$LanguageWorkedWith)
 
 data_2017_db_admin_language$Year <- "2017"
 
@@ -184,6 +194,9 @@ data_2018_filter$educationlevel_clean <-  ifelse(data_2018_filter$FormalEducatio
                                                                       ifelse(data_2018_filter$FormalEducation == "Primary/elementary school", "Primary school",
                                                                              ifelse(data_2018_filter$FormalEducation == "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)", "Secondary school", "Others" ))))))
 
+#data_2018_filter$LanguageWorkedWith <- ifelse(data_2018_filter$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_filter$LanguageWorkedWith)
+
+
 #DevType Analysis----
 
 data_2018_devtype_ini <- data_2018_filter %>%
@@ -202,7 +215,7 @@ data_2018_devtype$devtype_clean <-  ifelse(data_2018_devtype$DevType == "Back-en
                                                                               ifelse(data_2018_devtype$DevType == "Data scientist", "Developer",
                                                                                      ifelse(data_2018_devtype$DevType == "Game or graphics developer", "Developer",
                                                                                             ifelse(data_2018_devtype$DevType == "Front-end developer", "Developer",
-                                                                                                  ifelse(data_2018_devtype$DevType == "Systems administrator", "Sys Admin",
+                                                                                                  ifelse(data_2018_devtype$DevType == "System administrator", "Sys Admin",
                                                                                                          ifelse(data_2018_devtype$DevType == "Database administrator", "Db Admin",
                                                                                                                 ifelse(data_2018_devtype$DevType == "DevOps specialist", "DevOps", "Others" ))))))))))))
 
@@ -223,9 +236,11 @@ data_2018_language <- separate_rows(data_2018_language_ini, LanguageWorkedWith, 
 
 data_2018_language$LanguageWorkedWith <- trimws(data_2018_language$LanguageWorkedWith)
 
+data_2018_language$LanguageWorkedWith <- ifelse(data_2018_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_language$LanguageWorkedWith)
+
 data_2018_language$Year <- "2018"
 
-data_2018_language$LanguageWorkedWith <- ifelse(data_2018_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_language$LanguageWorkedWith)
+#data_2018_language$LanguageWorkedWith <- ifelse(data_2018_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_language$LanguageWorkedWith)
 
 #Developer Language Analysis----
 
@@ -236,6 +251,8 @@ data_2018_developer_language_ini <- data_2018_filter %>%
 data_2018_developer_language <- separate_rows(data_2018_developer_language_ini, LanguageWorkedWith, sep=";")
 
 data_2018_developer_language$LanguageWorkedWith <- trimws(data_2018_developer_language$LanguageWorkedWith)
+
+data_2018_developer_language$LanguageWorkedWith <- ifelse(data_2018_developer_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_developer_language$LanguageWorkedWith)
 
 data_2018_developer_language$Year <- "2018"
 
@@ -250,6 +267,8 @@ data_2018_sys_admin_language <- separate_rows(data_2018_sys_admin_language_ini, 
 
 data_2018_sys_admin_language$LanguageWorkedWith <- trimws(data_2018_sys_admin_language$LanguageWorkedWith)
 
+data_2018_sys_admin_language$LanguageWorkedWith <- ifelse(data_2018_sys_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_sys_admin_language$LanguageWorkedWith)
+
 data_2018_sys_admin_language$Year <- "2018"
 
 #Db Admin Language Analysis----
@@ -261,6 +280,8 @@ data_2018_db_admin_language_ini <- data_2018_filter %>%
 data_2018_db_admin_language <- separate_rows(data_2018_db_admin_language_ini, LanguageWorkedWith, sep=";")
 
 data_2018_db_admin_language$LanguageWorkedWith <- trimws(data_2018_db_admin_language$LanguageWorkedWith)
+
+data_2018_db_admin_language$LanguageWorkedWith <- ifelse(data_2018_db_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2018_db_admin_language$LanguageWorkedWith)
 
 data_2018_db_admin_language$Year <- "2018"
 
@@ -290,6 +311,9 @@ data_2019_filter$educationlevel_clean <-  ifelse(data_2019_filter$FormalEducatio
                                                                       ifelse(data_2019_filter$FormalEducation == "Primary/elementary school", "Primary school",
                                                                              ifelse(data_2019_filter$FormalEducation == "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)", "Secondary school", "Others" ))))))
 
+#data_2019_filter$LanguageWorkedWith <- ifelse(data_2019_filter$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2019_filter$LanguageWorkedWith)
+
+
 #DevType Analysis----
 
 data_2019_devtype_ini <- data_2019_filter %>%
@@ -308,7 +332,7 @@ data_2019_devtype$devtype_clean <-  ifelse(data_2019_devtype$DevType == "Develop
                                                                               ifelse(data_2019_devtype$DevType == "Developer, back-end", "Developer",
                                                                                      ifelse(data_2019_devtype$DevType == "Developer, front-end", "Developer",
                                                                                             ifelse(data_2019_devtype$DevType == "Developer, mobile", "Developer",
-                                                                                                   ifelse(data_2019_devtype$DevType == "Systems administrator", "Sys Admin",
+                                                                                                   ifelse(data_2019_devtype$DevType == "System administrator", "Sys Admin",
                                                                                                           ifelse(data_2019_devtype$DevType == "Database administrator", "Db Admin",
                                                                                                                  ifelse(data_2019_devtype$DevType == "DevOps specialist", "DevOps", "Others" ))))))))))))
 
@@ -329,6 +353,8 @@ data_2019_language <- separate_rows(data_2019_language_ini, LanguageWorkedWith, 
 
 data_2019_language$LanguageWorkedWith <- trimws(data_2019_language$LanguageWorkedWith)
 
+data_2019_language$LanguageWorkedWith <- ifelse(data_2019_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2019_language$LanguageWorkedWith)
+
 data_2019_language$Year <- "2019"
 
 #Developer Language Analysis----
@@ -341,7 +367,9 @@ data_2019_developer_language <- separate_rows(data_2019_developer_language_ini, 
 
 data_2019_developer_language$LanguageWorkedWith <- trimws(data_2019_developer_language$LanguageWorkedWith)
 
-data_2019_developer_language$Year <- "2018"
+data_2019_developer_language$LanguageWorkedWith <- ifelse(data_2019_developer_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2019_developer_language$LanguageWorkedWith)
+
+data_2019_developer_language$Year <- "2019"
 
 
 #Sys Admin Language Analysis----
@@ -354,6 +382,8 @@ data_2019_sys_admin_language <- separate_rows(data_2019_sys_admin_language_ini, 
 
 data_2019_sys_admin_language$LanguageWorkedWith <- trimws(data_2019_sys_admin_language$LanguageWorkedWith)
 
+data_2019_sys_admin_language$LanguageWorkedWith <- ifelse(data_2019_sys_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2019_sys_admin_language$LanguageWorkedWith)
+
 data_2019_sys_admin_language$Year <- "2019"
 
 #Db Admin Language Analysis----
@@ -365,6 +395,8 @@ data_2019_db_admin_language_ini <- data_2019_filter %>%
 data_2019_db_admin_language <- separate_rows(data_2019_db_admin_language_ini, LanguageWorkedWith, sep=";")
 
 data_2019_db_admin_language$LanguageWorkedWith <- trimws(data_2019_db_admin_language$LanguageWorkedWith)
+
+data_2019_db_admin_language$LanguageWorkedWith <- ifelse(data_2019_db_admin_language$LanguageWorkedWith=="Bash/Shell", "Bash/Shell/PowerShell", data_2019_db_admin_language$LanguageWorkedWith)
 
 data_2019_db_admin_language$Year <- "2019"
 
@@ -427,6 +459,154 @@ data_language_ggplot_grid_layout <- ggplotGrob(data_language_ggplot_grid)
 data_language_ggplot_grid_layout$layout$clip[data_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
 grid.draw(data_language_ggplot_grid_layout)
 
+
+#Create the World distribution plot of popular programming languages for developers-----
+#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
+data_developer_language <- rbind(data_2017_developer_language, data_2018_developer_language, data_2019_developer_language)
+
+data_developer_language_clean<- na.omit(data_developer_language, cols = "LanguageWorkedWith")
+
+#Create a dataframe to see the overall user per language per year. 
+data_developer_language_dt <- data_developer_language_clean %>%
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+developers_by_year <- data_developer_language %>%
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+developer_languages_presence <- data_developer_language %>%
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
+
+data_developer_language_dt_percent <- merge(data_developer_language_dt, users_by_year)
+
+data_developer_language_dt_percent <- merge(data_developer_language_dt_percent, developer_languages_presence)
+
+data_developer_language_dt_percent <- subset(data_developer_language_dt_percent, data_developer_language_dt_percent$presence == 3 | data_developer_language_dt_percent$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_developer_language_dt_percent$distribution <- (data_developer_language_dt_percent$users)*100/data_developer_language_dt_percent$overall_users
+
+data_developer_language_dt_percent$Year <- as.integer(data_developer_language_dt_percent$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_developer_language_ggplot <- ggplot(data_developer_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_developer_language_ggplot_grid = ggplot(data_developer_language_dt_percent) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_developer_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_developer_language_ggplot_grid_layout <- ggplotGrob(data_developer_language_ggplot_grid)
+data_developer_language_ggplot_grid_layout$layout$clip[data_developer_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_developer_language_ggplot_grid_layout)
+
+
+#Create the World distribution plot of popular programming languages for System Admins-----
+#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
+data_sys_admin_language <- rbind(data_2017_sys_admin_language, data_2018_sys_admin_language, data_2019_sys_admin_language)
+
+data_sys_admin_language_clean<- na.omit(data_sys_admin_language, cols = "LanguageWorkedWith")
+
+#Create a dataframe to see the overall user per language per year. 
+data_sys_admin_language_dt <- data_sys_admin_language_clean %>%
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+sys_admin_by_year <- data_sys_admin_language %>%
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+sys_admin_languages_presence <- data_sys_admin_language %>%
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
+
+data_sys_admin_language_dt_percent <- merge(data_sys_admin_language_dt, sys_admin_by_year)
+
+data_sys_admin_language_dt_percent <- merge(data_sys_admin_language_dt_percent, sys_admin_languages_presence)
+
+data_sys_admin_language_dt_percent <- subset(data_sys_admin_language_dt_percent, data_sys_admin_language_dt_percent$presence == 3 | data_sys_admin_language_dt_percent$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_sys_admin_language_dt_percent$distribution <- (data_sys_admin_language_dt_percent$users)*100/data_sys_admin_language_dt_percent$overall_users
+
+data_sys_admin_language_dt_percent$Year <- as.integer(data_sys_admin_language_dt_percent$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_sys_admin_language_ggplot <- ggplot(data_sys_admin_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_sys_admin_language_ggplot_grid = ggplot(data_sys_admin_language_dt_percent) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_sys_admin_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_sys_admin_language_ggplot_grid_layout <- ggplotGrob(data_sys_admin_language_ggplot_grid)
+data_sys_admin_language_ggplot_grid_layout$layout$clip[data_sys_admin_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_sys_admin_language_ggplot_grid_layout)
+
+
+
+#Create the World distribution plot of popular programming languages for Db Admins-----
+#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
+data_db_admin_language <- rbind(data_2017_db_admin_language, data_2018_db_admin_language, data_2019_db_admin_language)
+
+data_db_admin_language_clean<- na.omit(data_db_admin_language, cols = "LanguageWorkedWith")
+
+#Create a dataframe to see the overall user per language per year. 
+data_db_admin_language_dt <- data_db_admin_language_clean %>%
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+db_admin_by_year <- data_db_admin_language %>%
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+db_admin_languages_presence <- data_db_admin_language %>%
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
+
+data_db_admin_language_dt_percent <- merge(data_db_admin_language_dt, db_admin_by_year)
+
+data_db_admin_language_dt_percent <- merge(data_db_admin_language_dt_percent, db_admin_languages_presence)
+
+data_db_admin_language_dt_percent <- subset(data_db_admin_language_dt_percent, data_db_admin_language_dt_percent$presence == 3 | data_db_admin_language_dt_percent$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_db_admin_language_dt_percent$distribution <- (data_db_admin_language_dt_percent$users)*100/data_db_admin_language_dt_percent$overall_users
+
+data_db_admin_language_dt_percent$Year <- as.integer(data_db_admin_language_dt_percent$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_db_admin_language_ggplot <- ggplot(data_db_admin_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_db_admin_language_ggplot_grid = ggplot(data_db_admin_language_dt_percent) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_db_admin_language_dt_percent, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_db_admin_language_ggplot_grid_layout <- ggplotGrob(data_db_admin_language_ggplot_grid)
+data_db_admin_language_ggplot_grid_layout$layout$clip[data_db_admin_language_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_db_admin_language_ggplot_grid_layout)
+
 #Reference------
 
 #For the line graph generator----
@@ -480,10 +660,153 @@ grid.draw(data_language_ggplot_grid_layout_nl)
 
 
 
-#Create the World distribution plot of popular programming languages for Developers-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+#Create the World distribution plot of popular programming languages for developers in Netherlands-----
+
+data_developer_language_clean_nl <- data_developer_language_clean %>%
+                                                 filter(Country == "Netherlands")
+
+#Create a dataframe to see the overall user per language per year. 
+data_developer_language_dt_nl <- data_developer_language_clean_nl %>%
+                                    group_by(LanguageWorkedWith, Year) %>%
+                                    summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+developers_by_year_nl <- data_developer_language %>%
+                          filter(Country == "Netherlands") %>%
+                          group_by(Year) %>%
+                          summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+developer_languages_presence_nl <- data_developer_language %>%
+                                    filter(Country == "Netherlands") %>%
+                                    group_by(LanguageWorkedWith) %>%
+                                    summarize(presence = n_distinct(Year))
+
+data_developer_language_dt_percent_nl <- merge(data_developer_language_dt_nl, developers_by_year_nl)
+
+data_developer_language_dt_percent_nl <- merge(data_developer_language_dt_percent_nl, developer_languages_presence_nl)
+
+data_developer_language_dt_percent_nl <- subset(data_developer_language_dt_percent_nl, data_developer_language_dt_percent_nl$presence == 3 | data_developer_language_dt_percent_nl$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_developer_language_dt_percent_nl$distribution <- (data_developer_language_dt_percent_nl$users)*100/data_developer_language_dt_percent_nl$overall_users
+
+data_developer_language_dt_percent_nl$Year <- as.integer(data_developer_language_dt_percent_nl$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_developer_language_dt_percent_nl_ggplot <- ggplot(data_developer_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
 
-#Create the World distribution plot of popular programming languages for System Admins / Database Admins-----
-#Make sure these are a percentage of the respondents so that we can compare it to the Netherlands. 
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_developer_language_nl_ggplot_grid = ggplot(data_developer_language_dt_percent_nl) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_developer_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_developer_language_nl_ggplot_grid_layout <- ggplotGrob(data_developer_language_nl_ggplot_grid)
+data_developer_language_nl_ggplot_grid_layout$layout$clip[data_developer_language_nl_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_developer_language_nl_ggplot_grid_layout)
+
+
+#Create the World distribution plot of popular programming languages for Sys Admins in Netherlands-----
+
+data_sys_admin_language_clean_nl <- data_sys_admin_language_clean %>%
+  filter(Country == "Netherlands")
+
+#Create a dataframe to see the overall user per language per year. 
+data_sys_admin_language_dt_nl <- data_sys_admin_language_clean_nl %>%
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+sys_admin_by_year_nl <- data_sys_admin_language %>%
+  filter(Country == "Netherlands") %>%
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+sys_admin_languages_presence_nl <- data_sys_admin_language %>%
+  filter(Country == "Netherlands") %>%
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
+
+data_sys_admin_language_dt_percent_nl <- merge(data_sys_admin_language_dt_nl, sys_admin_by_year_nl)
+
+data_sys_admin_language_dt_percent_nl <- merge(data_sys_admin_language_dt_percent_nl, sys_admin_languages_presence_nl)
+
+data_sys_admin_language_dt_percent_nl <- subset(data_sys_admin_language_dt_percent_nl, data_sys_admin_language_dt_percent_nl$presence == 3 | data_sys_admin_language_dt_percent_nl$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_sys_admin_language_dt_percent_nl$distribution <- (data_sys_admin_language_dt_percent_nl$users)*100/data_sys_admin_language_dt_percent_nl$overall_users
+
+data_sys_admin_language_dt_percent_nl$Year <- as.integer(data_sys_admin_language_dt_percent_nl$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_sys_admin_language_dt_percent_nl_ggplot <- ggplot(data_sys_admin_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_sys_admin_language_nl_ggplot_grid = ggplot(data_sys_admin_language_dt_percent_nl) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_sys_admin_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_sys_admin_language_nl_ggplot_grid_layout <- ggplotGrob(data_sys_admin_language_nl_ggplot_grid)
+data_sys_admin_language_nl_ggplot_grid_layout$layout$clip[data_sys_admin_language_nl_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_sys_admin_language_nl_ggplot_grid_layout)
+
+
+#Create the World distribution plot of popular programming languages for Db Admins in Netherlands-----
+
+data_db_admin_language_clean_nl <- data_db_admin_language_clean %>%
+  filter(Country == "Netherlands")
+
+#Create a dataframe to see the overall user per language per year. 
+data_db_admin_language_dt_nl <- data_db_admin_language_clean_nl %>%
+  group_by(LanguageWorkedWith, Year) %>%
+  summarize(users = n_distinct(Respondent))
+
+#Create a dataframe to see the overall users per year. 
+db_admin_by_year_nl <- data_db_admin_language %>%
+  filter(Country == "Netherlands") %>%
+  group_by(Year) %>%
+  summarize(overall_users = n_distinct(Respondent))
+
+#Check the number of years this language was present in the survey
+db_admin_languages_presence_nl <- data_db_admin_language %>%
+  filter(Country == "Netherlands") %>%
+  group_by(LanguageWorkedWith) %>%
+  summarize(presence = n_distinct(Year))
+
+data_db_admin_language_dt_percent_nl <- merge(data_db_admin_language_dt_nl, db_admin_by_year_nl)
+
+data_db_admin_language_dt_percent_nl <- merge(data_db_admin_language_dt_percent_nl, db_admin_languages_presence_nl)
+
+data_db_admin_language_dt_percent_nl <- subset(data_db_admin_language_dt_percent_nl, data_db_admin_language_dt_percent_nl$presence == 3 | data_db_admin_language_dt_percent_nl$LanguageWorkedWith =="Bash/Shell/PowerShell" )
+
+data_db_admin_language_dt_percent_nl$distribution <- (data_db_admin_language_dt_percent_nl$users)*100/data_db_admin_language_dt_percent_nl$overall_users
+
+data_db_admin_language_dt_percent_nl$Year <- as.integer(data_db_admin_language_dt_percent_nl$Year)
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
+data_db_admin_language_dt_percent_nl_ggplot <- ggplot(data_db_admin_language_dt_percent_nl, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
+
+
+
+#Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
+data_db_admin_language_nl_ggplot_grid = ggplot(data_db_admin_language_dt_percent_nl) + 
+  geom_line(aes(x = Year, y = distribution, group = LanguageWorkedWith, colour = LanguageWorkedWith)) + 
+  geom_text(data = subset(data_db_admin_language_dt_percent_nl, Year == 2019), aes(label = LanguageWorkedWith, colour = LanguageWorkedWith, x = Inf, y = distribution), hjust = -.1) +
+  scale_colour_discrete(guide = 'none')  +    
+  theme(plot.margin = unit(c(1,6,1,1), "lines")) 
+
+data_db_admin_language_nl_ggplot_grid_layout <- ggplotGrob(data_db_admin_language_nl_ggplot_grid)
+data_db_admin_language_nl_ggplot_grid_layout$layout$clip[data_db_admin_language_nl_ggplot_grid_layout$layout$name == "panel"] <- "off"
+grid.draw(data_db_admin_language_nl_ggplot_grid_layout)
+
+
+
+
 
