@@ -1,5 +1,6 @@
 #Install the required packages----
 install.packages("readr")
+install.packages("readxl")
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages('janitor')
@@ -12,6 +13,7 @@ install.packages("barplot")
 
 #Load the required packages----
 library("readr")
+library("readxl")
 library("dplyr")
 library("tidyr")
 library("janitor")
@@ -97,8 +99,11 @@ View(data_surveypwc_language)
 
 data_surveypwc_language$Year <- "2019"
 
+ggplot(data_surveypwc_language, aes(x=LanguageWorkedWith, Y=Respondent))
 
-plot(data_surveypwc_language,LanguageWorkedWith,type="l",lwd=3)
+
+
+plot(data_surveypwc_language, aes(x=LanguageWorkedWith,y=Respondent, type="l",lwd=3))
 
 #Aggregated data sets----
 
@@ -145,7 +150,7 @@ survey_language_dt_percent$Year <- as.integer(survey_language_dt_percent$Year)
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 1
 survey_language_ggplot <- ggplot(survey_language_dt_percent, aes(x = Year, y = distribution, colour = LanguageWorkedWith, label = LanguageWorkedWith)) + geom_line()
 
-
+View(survey_language_ggplot)
 
 #Line graphs of the percentage change of programming laguages in the world from 2017 - 2019 2
 survey_language_ggplot_grid = ggplot(survey_language_dt_percent) + 
