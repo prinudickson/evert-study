@@ -636,7 +636,9 @@ data_language_dt_percent_nl <- merge(data_language_dt_nl, users_by_year_nl)
 
 data_language_dt_percent_nl <- merge(data_language_dt_percent_nl, languages_presence_nl)
 
-data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3)
+data_language_dt_percent_nl <- subset(data_language_dt_percent_nl, data_language_dt_percent_nl$presence == 3 | data_language_dt_percent$LanguageWorkedWith =="Bash/Shell/PowerShell")
+
+#data_language_dt_percent <- subset(data_language_dt_percent, data_language_dt_percent$presence == 3 | data_language_dt_percent$LanguageWorkedWith =="Bash/Shell/PowerShell" )
 
 data_language_dt_percent_nl$distribution <- (data_language_dt_percent_nl$users)*100/data_language_dt_percent_nl$overall_users
 
